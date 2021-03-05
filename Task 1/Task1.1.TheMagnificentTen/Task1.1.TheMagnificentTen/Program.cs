@@ -56,11 +56,7 @@ namespace Task1._1.TheMagnificentTen
 
             for (int line = 1; line <= n; line++)
             {
-                for (int column = 1; column <= line; column++)
-                {
-                    Console.Write('*');
-                }
-                Console.WriteLine();
+                Console.WriteLine(new String('*', line));
             }
         }
 
@@ -78,11 +74,7 @@ namespace Task1._1.TheMagnificentTen
             {
                 int numberOfChars = line * 2 - 1;
 
-                string str = "";
-                for (int column = 0; column < numberOfChars; column++)
-                {
-                    str += '*';
-                }
+                string str = new String('*', numberOfChars);
 
                 Console.WriteLine(str.PadLeft(n - line + numberOfChars));
             }
@@ -104,11 +96,7 @@ namespace Task1._1.TheMagnificentTen
                 {
                     int numberOfChars = line * 2 - 1;
 
-                    string str = "";
-                    for (int column = 0; column < numberOfChars; column++)
-                    {
-                        str += '*';
-                    }
+                    string str = new String('*', numberOfChars);
 
                     Console.WriteLine(str.PadLeft(n - line + numberOfChars));
                 }
