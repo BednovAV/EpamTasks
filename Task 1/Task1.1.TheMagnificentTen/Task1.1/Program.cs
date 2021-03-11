@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task1._1.TheMagnificentTen
+namespace Task1._1
 {
     class Program
     {
@@ -23,7 +23,7 @@ namespace Task1._1.TheMagnificentTen
                 Console.Write("a: ");
                 a = int.Parse(Console.ReadLine());
 
-                if(a <= 0)
+                if (a <= 0)
                 {
                     Console.WriteLine("Попробуйте еще раз.");
                 }
@@ -120,7 +120,7 @@ namespace Task1._1.TheMagnificentTen
             //    }
             //}
 
-            for (int i = 0; i < 1000; i+= 3)
+            for (int i = 0; i < 1000; i += 3)
             {
                 if (i % 5 != 0)
                 {
@@ -158,7 +158,7 @@ namespace Task1._1.TheMagnificentTen
         }
         static void FontAdjustment()
         {
-            List<FontProp> props = new List<FontProp>();
+            List<FontProp?> props = new List<FontProp?>();
 
             string select = "";
             while (select != "0")
@@ -186,51 +186,28 @@ namespace Task1._1.TheMagnificentTen
                                     "\t0: Выйти");
 
                 select = Console.ReadLine();
-                switch (select)
+
+                FontProp? prop = select switch
                 {
-                    case "1":
-                        {
-                            if (props.Contains(FontProp.Bold))
-                            {
-                                props.Remove(FontProp.Bold);
-                            }
-                            else
-                            {
-                                props.Add(FontProp.Bold);
-                            }
-                            break;
-                        }
-                    case "2":
-                        {
-                            if (props.Contains(FontProp.Italic))
-                            {
-                                props.Remove(FontProp.Italic);
-                            }
-                            else
-                            {
-                                props.Add(FontProp.Italic);
-                            }
-                            break;
-                        }
-                    case "3":
-                        {
-                            if (props.Contains(FontProp.Underline))
-                            {
-                                props.Remove(FontProp.Underline);
-                            }
-                            else
-                            {
-                                props.Add(FontProp.Underline);
-                            }
-                            break;
-                        }
-
-                    default:
-                        break;
+                    "1" => FontProp.Bold,
+                    "2" => FontProp.Italic,
+                    "3" => FontProp.Underline,
+                    _ => null
+                };
+                
+                if (prop != null)
+                {
+                    if (props.Contains(prop))
+                    {
+                        props.Remove(prop);
+                    }
+                    else
+                    {
+                        props.Add(prop);
+                    }
                 }
-
             }
-            
+
         }
 
         /* 
@@ -311,14 +288,14 @@ namespace Task1._1.TheMagnificentTen
         static void NoPositive()
         {
             Random rnd = new Random();
-            int[,,] array = new int[3,3,3];
+            int[,,] array = new int[3, 3, 3];
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 for (int j = 0; j < array.GetLength(1); j++)
                 {
                     for (int k = 0; k < array.GetLength(2); k++)
                     {
-                        array[i,j,k] = rnd.Next(-100, 101);
+                        array[i, j, k] = rnd.Next(-100, 101);
                     }
                 }
             }
