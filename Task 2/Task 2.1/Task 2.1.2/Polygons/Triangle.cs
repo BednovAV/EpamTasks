@@ -17,6 +17,6 @@ namespace Task_2._1._2.Polygons
             return Math.Sqrt(semiArea * (semiArea - a) * (semiArea - b) * (semiArea - c));
         }
         public override string ToString()
-            => String.Format($"{Name}: ({Points[0]}{Points[1]}{Points[2]})");
+            => String.Format($"{Name}: [{Points[0]}{Points[1]}{Points[2]}]");
     }
 }

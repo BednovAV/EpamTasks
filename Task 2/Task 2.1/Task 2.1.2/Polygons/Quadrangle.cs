@@ -10,7 +10,7 @@ namespace Task_2._1._2.Polygons
             Rectangle,
             other
         }
-        private QuadrangleType _type;
+        private readonly QuadrangleType _type;
         public Quadrangle(Point p1, Point p2, Point p3, Point p4) : base("Четырехугольник")
         {
             Points = new Point[] { p1, p2, p3, p4 };
@@ -37,9 +37,18 @@ namespace Task_2._1._2.Polygons
 
         public override double Area()
         {
-            throw new NotImplementedException();
+            double sum1 = Points[Points.Length - 1].X * Points[0].Y;
+            double sum2 = Points[0].X * Points[Points.Length - 1].Y;
+
+            for (int i = 0; i < Points.Length - 1; i++)
+            {
+                sum1 += Points[i].X * Points[i + 1].Y;
+                sum2 += Points[i + 1].Y * Points[i].Y;
+            }
+
+            return (double)1 / 2 * Math.Abs(sum1 - sum2);
         }
         public override string ToString()
-            => String.Format($"{Name}: ({Points[0]}{Points[1]}{Points[2]}{Points[3})");
+            => String.Format($"{Name}: [{Points[0]}{Points[1]}{Points[2]}{Points[3]}]");
     }
 }

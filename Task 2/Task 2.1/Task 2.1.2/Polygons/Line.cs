@@ -9,7 +9,7 @@ namespace Task_2._1._2.Polygons
 
         public override double Area() => 0;
         public override string ToString()
-            => String.Format($"{Name}: ({Points[0]}{Points[1]})");
+            => String.Format($"{Name}: [{Points[0]}{Points[1]}]");
 
         public Point GetVector()
         {

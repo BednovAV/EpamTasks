@@ -27,6 +27,5 @@ namespace Task_2._1._2.Polygons
                 return 0;
             }
         }
-        public 
     }
 }

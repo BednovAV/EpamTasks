@@ -6,7 +6,8 @@ namespace Task_2._1._2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var customPaint = new CustomPaintConsoleUI();
+            customPaint.StartMenu();
         }
     }
 }
