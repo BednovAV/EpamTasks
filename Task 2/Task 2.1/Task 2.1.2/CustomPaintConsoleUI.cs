@@ -16,6 +16,7 @@ namespace Task_2._1._2
         private readonly string _textStartMenu;
         private readonly string _textSwitchUser;
         private readonly string _textAddFigureMenu;
+
         public CustomPaintConsoleUI()
         {
             _usersBD = new Dictionary<int, User>();
@@ -40,7 +41,6 @@ namespace Task_2._1._2
                 "\t5. Треугольник" + Environment.NewLine +
                 "\t6. Четырехугольник";
         } 
-
         public void StartMenu()
         {
             SwitchUserMenu();
@@ -134,97 +134,17 @@ namespace Task_2._1._2
             } while (!(int.TryParse(Console.ReadLine(), out selectedFigure))||
                      (selectedFigure < 1 || selectedFigure > 6));
 
-            Figure newFigure = null;
-            switch (selectedFigure)
+            Figure newFigure = selectedFigure switch
             {
-                case 1:
-                case 2:
-                    {
-                        Point centre = InputPoint("Центр");
-                        int r = InputPositiveValue("Радиус: ");
+                1 => new Circle(InputPoint("Центр"), InputPositiveValue("Радиус: ")),
+                2 => new Round(InputPoint("Центр"), InputPositiveValue("Радиус: ")),
+                3 => new Ring(InputPoint("Центр"), InputPositiveValue("Внутренний радиус: "), InputPositiveValue("Внешний радиус: ")),
+                4 => new Line(InputPoint("Точка А"), InputPoint("Точка B")),
+                5 => new Triangle(InputPoint("Точка А"), InputPoint("Точка B"), InputPoint("Точка C")),
+                6 => new Quadrangle(InputPoint("Точка А"), InputPoint("Точка B"), InputPoint("Точка C"), InputPoint("Точка D"))
+            };
 
-                        if (selectedFigure == 1)
-                        {
-                            newFigure = new Circle(centre, r);
-                        }
-                        else
-                        {
-                            newFigure = new Round(centre, r);
-                        }
-                    }
-                    break;
-                case 3:
-                    {
-                        Point centre = InputPoint("Центр");
-                        int innerRadius = InputPositiveValue("Внутренний радиус: ");
-                        int outherRadius = InputPositiveValue("Внешний радиус: ");
-
-                        newFigure = new Ring(centre, innerRadius, outherRadius);
-                    }
-                    break;
-                case 4:
-                    {
-                        Point pointA = InputPoint("Точка А");
-                        Point pointB = InputPoint("Точка B");
-
-                        newFigure = new Line(pointA, pointB);
-                    }
-                    break;
-                case 5:
-                    {
-                        Point pointA = InputPoint("Точка А");
-                        Point pointB = InputPoint("Точка B");
-                        Point pointC = InputPoint("Точка C");
-
-                        newFigure = new Triangle(pointA, pointB, pointC);
-                    }
-                    break;
-                case 6:
-                    {
-                        Point pointA = InputPoint("Точка А");
-                        Point pointB = InputPoint("Точка B");
-                        Point pointC = InputPoint("Точка C");
-                        Point pointD = InputPoint("Точка D");
-
-                        newFigure = new Quadrangle(pointA, pointB, pointC, pointD);
-                    }
-                    break;
-            }
             _usersBD[currentUser].AddFigure(newFigure);
-        }
-
-        private Point InputPoint(string name)
-        {
-            Console.WriteLine(name);
-            
-            int x = InputValue("\tX: ");
-            int y = InputValue("\tY: ");
-
-            return new Point(x, y);
-        }
-
-        private int InputPositiveValue(string text)
-        {
-            int value;
-
-            do
-            {
-                Console.Write(text);
-            } while (!(int.TryParse(Console.ReadLine(), out value)) || value <= 0);
-
-            return value;
-        }
-
-        private int InputValue(string text)
-        {
-            int value;
-
-            do
-            {
-                Console.Write(text);
-            } while (!(int.TryParse(Console.ReadLine(), out value)));
-
-            return value;
         }
 
         private void SwitchUser()
@@ -259,6 +179,40 @@ namespace Task_2._1._2
         }
 
         private void ClearFigures() => _usersBD[currentUser].RemoveAll();
+
+        private Point InputPoint(string name)
+        {
+            Console.WriteLine(name);
+
+            int x = InputValue("\tX: ");
+            int y = InputValue("\tY: ");
+
+            return new Point(x, y);
+        }
+
+        private int InputPositiveValue(string text)
+        {
+            int value;
+
+            do
+            {
+                Console.Write(text);
+            } while (!(int.TryParse(Console.ReadLine(), out value)) || value <= 0);
+
+            return value;
+        }
+
+        private int InputValue(string text)
+        {
+            int value;
+
+            do
+            {
+                Console.Write(text);
+            } while (!(int.TryParse(Console.ReadLine(), out value)));
+
+            return value;
+        }
 
         private void ShowFigures()
         {
