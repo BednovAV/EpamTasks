@@ -33,6 +33,12 @@ namespace Task_2._1._1
             {
                 Console.Write($"{item} ");
             }
+            Console.WriteLine(Environment.NewLine);
+
+            Console.WriteLine($"{hello}.CharCount({'l'}): {hello.CharCount('l')}");
+            Console.WriteLine();
+
+            Console.WriteLine($"{world}.Reply(5): {world.Reply(5)}");
         }
     }
 }

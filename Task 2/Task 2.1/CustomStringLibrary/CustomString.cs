@@ -31,6 +31,37 @@ namespace CustomStringLibrary
             _content = text.ToCharArray();
         }
 
+        /// <summary>
+        /// Собственный метод, возвращающий текущую строку,
+        /// повторенную заданное количество раз
+        /// </summary>
+        public CustomString Reply(int count)
+        {
+            CustomString result = new CustomString();
+
+            for (int i = 0; i < count; i++)
+            {
+                result += this;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Собственный метод, возвращающий количесвто повторений заданного
+        /// символа в текущей строке
+        /// </summary>
+        public int CharCount(char value)
+        {
+            int count = 0;
+            foreach (var item in _content)
+            {
+                if (item == value) count -= -1;
+            }
+
+            return count;
+        }
+
         char this[int i]
         {
             set => _content[i] = value;
