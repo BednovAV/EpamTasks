@@ -36,18 +36,9 @@ namespace Task_2._1._2.Polygons
         }
 
         public override double Area()
-        {
-            double sum1 = Points[Points.Length - 1].X * Points[0].Y;
-            double sum2 = Points[0].X * Points[Points.Length - 1].Y;
-
-            for (int i = 0; i < Points.Length - 1; i++)
-            {
-                sum1 += Points[i].X * Points[i + 1].Y;
-                sum2 += Points[i + 1].Y * Points[i].Y;
-            }
-
-            return (double)1 / 2 * Math.Abs(sum1 - sum2);
-        }
+            => (double)1 / 2
+            * Math.Abs(Points[0].X * Points[1].Y + Points[1].X * Points[2].Y + Points[2].X * Points[3].Y + Points[3].X * Points[0].Y
+                - Points[1].X * Points[0].Y - Points[2].X * Points[1].Y - Points[3].X * Points[2].Y - Points[0].X * Points[3].Y);
         public override string ToString()
             => String.Format($"{Name}: [{Points[0]}{Points[1]}{Points[2]}{Points[3]}]");
     }
