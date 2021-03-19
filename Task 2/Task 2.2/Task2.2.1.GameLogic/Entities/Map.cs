@@ -11,8 +11,9 @@ namespace Task2._2._1.GameLogic.Entities
     {
         public int Width { get; }
         public int Height { get; }
-        public Player Player { get; set; }        
+        public IPlayer Player { get; }        
         public Dictionary<Point, IBarrier> Barriers { get; }
         public Dictionary<Point, IBonus> Bonuses { get; }
+        public Dictionary<Point, IEnemy> Enemies { get; }
     }
 }
