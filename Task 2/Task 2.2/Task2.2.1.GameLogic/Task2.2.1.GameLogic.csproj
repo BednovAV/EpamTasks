@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Task2._2._1.GameLogic</RootNamespace>
+  </PropertyGroup>
+
+</Project>
