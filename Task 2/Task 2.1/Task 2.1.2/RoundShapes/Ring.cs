@@ -1,4 +1,5 @@
 ﻿using System;
+using Task_2._1._2.Exceptions;
 
 namespace Task_2._1._2.RoundShapes
 {
@@ -9,6 +10,9 @@ namespace Task_2._1._2.RoundShapes
         public Circle InnerCircle { get; }
         public Ring(Point p, int innerR, int outherR) : base("Кольцо")
         {
+            if (innerR >= outherR)
+                throw new IncorrectRadiusExeption("Внешний радиус должен быть строго больше внутреннего");
+
             OutherCircle = new Circle(p, outherR);
             InnerCircle = new Circle(p, innerR);
         }
