@@ -1,6 +1,4 @@
-﻿using Task2._2._1.GameLogic.Entities;
-
-namespace Task2._2._1.GameLogic.Interfaces
+﻿namespace Task2._2._1.GameLogic.Interfaces
 {
     public interface IBonus
     {
