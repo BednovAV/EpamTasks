@@ -19,7 +19,7 @@ namespace CustomStringLibrary
     {
         private char[] _content;
 
-        public int Lenght { get => _content.Length; }
+        public int Length { get => _content.Length; }
 
         public CustomString()
         {
@@ -31,11 +31,18 @@ namespace CustomStringLibrary
             _content = text.ToCharArray();
         }
 
+        public CustomString(CustomString customString)
+        {
+            _content = new char[customString.Length];
+
+            Array.Copy(customString._content, _content, Length);
+        }
+
         /// <summary>
         /// Собственный метод, возвращающий текущую строку,
         /// повторенную заданное количество раз
         /// </summary>
-        public CustomString Reply(int count)
+        public CustomString Repeat(int count)
         {
             CustomString result = new CustomString();
 
@@ -62,7 +69,7 @@ namespace CustomStringLibrary
             return count;
         }
 
-        char this[int i]
+        public char this[int i]
         {
             set => _content[i] = value;
             get => _content[i];
@@ -74,9 +81,12 @@ namespace CustomStringLibrary
         /// <param name="string"></param>
         public bool Equals(CustomString str)
         {
-            if (this.Lenght == str.Lenght)
+            if (str == null)
+                return false;
+
+            if (this.Length == str.Length)
             {
-                for (int i = 0; i < Lenght; i++)
+                for (int i = 0; i < Length; i++)
                 {
                     if (this[i] != str[i])
                     {
@@ -93,9 +103,9 @@ namespace CustomStringLibrary
 
         public override bool Equals(object obj)
         {
-            if (obj is CustomString)
+            if (obj is CustomString cs)
             {
-                return this.Equals((CustomString)obj);
+                return this.Equals(cs);
             }
             else
             {
@@ -105,9 +115,9 @@ namespace CustomStringLibrary
 
         public void Append(CustomString str)
         {
-            char[] newContent = new char[this.Lenght + str.Lenght];
-            Array.Copy(_content, newContent, this.Lenght);
-            Array.Copy(str._content, 0, newContent, this.Lenght, str.Lenght);
+            char[] newContent = new char[this.Length + str.Length];
+            Array.Copy(_content, newContent, this.Length);
+            Array.Copy(str._content, 0, newContent, this.Length, str.Length);
 
             this._content = newContent;
         }
@@ -120,7 +130,7 @@ namespace CustomStringLibrary
         /// </summary>
         public int IndexOf(char ch)
         {
-            for (int i = 0; i < Lenght; i++)
+            for (int i = 0; i < Length; i++)
             {
                 if (_content[i] == ch)
                 {
@@ -140,14 +150,8 @@ namespace CustomStringLibrary
 
         public static CustomString operator +(CustomString s1, CustomString s2)
         {
-            CustomString resultString = new CustomString();
-
-            char[] newContent = new char[s1.Lenght + s2.Lenght];
-            Array.Copy(s1._content, newContent, s1.Lenght);
-            Array.Copy(s2._content, 0, newContent, s1.Lenght, s2.Lenght);
-
-            resultString._content = newContent;
-
+            CustomString resultString = new CustomString(s1);
+            resultString.Append(s2);
             return resultString;
         }
         public static bool operator ==(CustomString s1, CustomString s2) => s1.Equals(s2);

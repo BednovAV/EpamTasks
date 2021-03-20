@@ -38,7 +38,7 @@ namespace Task_2._1._1
             Console.WriteLine($"{hello}.CharCount({'l'}): {hello.CharCount('l')}");
             Console.WriteLine();
 
-            Console.WriteLine($"{world}.Reply(5): {world.Reply(5)}");
+            Console.WriteLine($"{world}.Reply(5): {world.Repeat(5)}");
         }
     }
 }
