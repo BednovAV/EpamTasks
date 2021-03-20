@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Task_2._1._2.Polygons;
 using Task_2._1._2.RoundShapes;
+using Task_2._1._2.Exceptions;
 
 namespace Task_2._1._2
 {
@@ -131,20 +130,34 @@ namespace Task_2._1._2
 
                 Console.Write("Выберите фигуру: ");
 
-            } while (!(int.TryParse(Console.ReadLine(), out selectedFigure))||
+            } while (!(int.TryParse(Console.ReadLine(), out selectedFigure)) ||
                      (selectedFigure < 1 || selectedFigure > 6));
 
-            Figure newFigure = selectedFigure switch
+            try
             {
-                1 => new Circle(InputPoint("Центр"), InputPositiveValue("Радиус: ")),
-                2 => new Round(InputPoint("Центр"), InputPositiveValue("Радиус: ")),
-                3 => new Ring(InputPoint("Центр"), InputPositiveValue("Внутренний радиус: "), InputPositiveValue("Внешний радиус: ")),
-                4 => new Line(InputPoint("Точка А"), InputPoint("Точка B")),
-                5 => new Triangle(InputPoint("Точка А"), InputPoint("Точка B"), InputPoint("Точка C")),
-                6 => new Quadrangle(InputPoint("Точка А"), InputPoint("Точка B"), InputPoint("Точка C"), InputPoint("Точка D"))
-            };
+                Figure newFigure = selectedFigure switch
+                {
+                    1 => new Circle(InputPoint("Центр"), InputPositiveValue("Радиус: ")),
+                    2 => new Round(InputPoint("Центр"), InputPositiveValue("Радиус: ")),
+                    3 => new Ring(InputPoint("Центр"), InputPositiveValue("Внутренний радиус: "), InputPositiveValue("Внешний радиус: ")),
+                    4 => new Line(InputPoint("Точка А"), InputPoint("Точка B")),
+                    5 => new Triangle(InputPoint("Точка А"), InputPoint("Точка B"), InputPoint("Точка C")),
+                    6 => new Quadrangle(InputPoint("Точка А"), InputPoint("Точка B"), InputPoint("Точка C"), InputPoint("Точка D"))
+                };
 
-            _usersBD[currentUser].AddFigure(newFigure);
+                _usersBD[currentUser].AddFigure(newFigure);
+                Console.WriteLine("Фигура успешно добавлена");
+            }
+            catch (IdenticalPointsExeption) 
+            {
+                Console.WriteLine("Ошибка. Фигура не была добавлена," +
+                    " так как она не может содержать одинаковые точки");
+            }
+            catch (IncorrectRadiusExeption)
+            {
+                Console.WriteLine("Ошибка. Фигура не была добавлена," +
+                    " так как внешний радиус кольца должен быть строго больше внутреннего");
+            }
         }
 
         private void SwitchUser()
