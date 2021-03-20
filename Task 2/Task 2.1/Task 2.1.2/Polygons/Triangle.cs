@@ -4,8 +4,7 @@ namespace Task_2._1._2.Polygons
 {
     public class Triangle : Polygon
     {
-        public Triangle(Point p1, Point p2, Point p3) : base("Треугольник") 
-            => Points = new Point[] { p1, p2, p3 };
+        public Triangle(Point p1, Point p2, Point p3) : base("Треугольник", p1, p2, p3) { }
 
         public override double Area()
         {

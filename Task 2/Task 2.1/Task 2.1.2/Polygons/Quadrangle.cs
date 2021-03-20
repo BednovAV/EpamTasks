@@ -11,9 +11,8 @@ namespace Task_2._1._2.Polygons
             other
         }
         private readonly QuadrangleType _type;
-        public Quadrangle(Point p1, Point p2, Point p3, Point p4) : base("Четырехугольник")
+        public Quadrangle(Point p1, Point p2, Point p3, Point p4) : base("Четырехугольник", p1, p2, p3, p4)
         {
-            Points = new Point[] { p1, p2, p3, p4 };
 
             Line a = new Line(p1, p2);
             Line b = new Line(p2, p3);

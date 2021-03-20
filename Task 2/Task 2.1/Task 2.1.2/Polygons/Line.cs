@@ -4,8 +4,7 @@ namespace Task_2._1._2.Polygons
 {
     class Line : Polygon
     {
-        public Line(Point p1, Point p2) : base("Линия")
-            => Points = new Point[] { p1, p2 };
+        public Line(Point p1, Point p2) : base("Линия", p1, p2) { }
 
         public override double Area() => 0;
         public override string ToString()

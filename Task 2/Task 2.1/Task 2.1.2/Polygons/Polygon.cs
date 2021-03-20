@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Task_2._1._2.Exceptions;
 
 namespace Task_2._1._2.Polygons
 {
@@ -7,7 +8,13 @@ namespace Task_2._1._2.Polygons
     {
         protected Point[] Points { set; get; }
 
-        public Polygon(string name) : base(name) { }
+        public Polygon(string name, params Point[] points) : base(name)
+        {
+            Points = points;
+
+            if (Points.Distinct().Count() < Points.Length)
+                throw new IdenticalPointsExeption("Многоугольник не может содержать одинаковые точки");
+        }
         public override double Length()
         {
             if (Points.Length > 1) // if point is 1, returns 0
