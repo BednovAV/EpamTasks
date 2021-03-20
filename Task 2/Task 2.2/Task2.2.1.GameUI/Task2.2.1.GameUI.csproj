@@ -6,4 +6,8 @@
     <RootNamespace>Task2._2._1.GameUI</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Task2.2.1.GameLogic.Interfaces\Task2.2.1.GameLogic.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

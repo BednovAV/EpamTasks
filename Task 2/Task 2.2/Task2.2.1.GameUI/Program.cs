@@ -6,7 +6,7 @@ namespace Task2._2._1.GameUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // TODO: Implement game interface
         }
     }
 }
