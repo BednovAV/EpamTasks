@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-using Task_2._1._2.Exceptions;
+﻿using System.Linq;
+using Task_2._1._2.Figures.Exceptions;
 
-namespace Task_2._1._2.Polygons
+namespace Task_2._1._2.Figures.Polygons
 {
     public abstract class Polygon : Figure
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Task_2._1._2.CustomPaintConsoleUI;
 
 namespace Task_2._1._2
 {
@@ -6,8 +7,7 @@ namespace Task_2._1._2
     {
         static void Main(string[] args)
         {
-            var customPaint = new CustomPaintConsoleUI();
-            customPaint.StartMenu();
+            App.Start();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Task_2._1._2.Polygons
+namespace Task_2._1._2.Figures.Polygons
 {
     class Line : Polygon
     {

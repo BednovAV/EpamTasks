@@ -1,7 +1,7 @@
 ﻿using System;
-using Task_2._1._2.Exceptions;
+using Task_2._1._2.Figures.Exceptions;
 
-namespace Task_2._1._2.RoundShapes
+namespace Task_2._1._2.Figures.RoundShapes
 {
     public class Ring : Figure
     {

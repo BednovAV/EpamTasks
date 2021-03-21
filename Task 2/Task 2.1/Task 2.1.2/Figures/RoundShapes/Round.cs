@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Task_2._1._2.RoundShapes
+namespace Task_2._1._2.Figures.RoundShapes
 {
     public class Round : Circle
     {

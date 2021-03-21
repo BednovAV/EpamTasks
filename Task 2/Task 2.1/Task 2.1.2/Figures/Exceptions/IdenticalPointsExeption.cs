@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_2._1._2.Exceptions
+namespace Task_2._1._2.Figures.Exceptions
 {
     class IdenticalPointsExeption : ArgumentException
     {
