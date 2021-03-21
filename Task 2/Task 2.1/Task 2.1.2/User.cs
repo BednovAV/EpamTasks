@@ -13,6 +13,9 @@ namespace Task_2._1._2
         public IEnumerable<Figure> Figures { get => _figures; }
         public User(string name)
         {
+            if (name == string.Empty)
+                throw new ArgumentException("Пустая строка не может быть именем пользователя");
+            
             Name = name;
             _figures = new List<Figure>();
         }

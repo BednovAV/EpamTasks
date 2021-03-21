@@ -8,7 +8,7 @@ namespace Task_2._1._2.Polygons
         {
             Square,
             Rectangle,
-            other
+            Quadrangle
         }
         private readonly QuadrangleType _type;
         public Quadrangle(Point p1, Point p2, Point p3, Point p4) : base("Четырехугольник", p1, p2, p3, p4)
@@ -19,7 +19,7 @@ namespace Task_2._1._2.Polygons
             Line c = new Line(p3, p4);
             Line d = new Line(p4, p1);
 
-            if (Line.IsPerpendicular(a, b) || Line.IsPerpendicular(c, d))
+            if (Line.ArePerpendicular(a, b) || Line.ArePerpendicular(c, d))
             {
                 if(a.Length() == b.Length())
                 {
@@ -31,6 +31,10 @@ namespace Task_2._1._2.Polygons
                     _type = QuadrangleType.Rectangle;
                     Name += "(прямоугольник)";
                 }
+            }
+            else
+            {
+                _type = QuadrangleType.Quadrangle;
             }
         }
 
