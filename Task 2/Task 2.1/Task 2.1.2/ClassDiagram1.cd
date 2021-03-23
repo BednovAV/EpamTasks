@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Task_2._1._2.Figures.Exceptions.IdenticalPointsExeption">
+    <Position X="15.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Figures\Exceptions\IdenticalPointsExeption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.Exceptions.IncorrectRadiusExeption" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Figures\Exceptions\IncorrectRadiusExeption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.Polygons.Line" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAIAAAAAAAAEAAAAAAACAAAAAAAAAAAAIQFAAEA=</HashCode>
+      <FileName>Figures\Polygons\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.Polygons.Polygon" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Figures\Polygons\Polygon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.Polygons.Quadrangle" Collapsed="true">
+    <Position X="14.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Figures\Polygons\Quadrangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.Polygons.Triangle" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Figures\Polygons\Triangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.RoundShapes.Circle" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAIAAAAAAAAAAAEAAAAAABAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Figures\RoundShapes\Circle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.RoundShapes.Ring" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAEAEAAAABAAAAAAAQAAAAAAQAAAAA=</HashCode>
+      <FileName>Figures\RoundShapes\Ring.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.RoundShapes.Round">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Figures\RoundShapes\Round.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Figures.Figure" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAARAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Figures\Figure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.CustomPaintConsoleUI.Entities.User" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAACAAQAAAAAAAACIAAAAAAAAAA=</HashCode>
+      <FileName>CustomPaintConsoleUI\Entities\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.CustomPaintConsoleUI.Helpers.InputHelpers" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>CustomPaintConsoleUI\Helpers\InputHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.CustomPaintConsoleUI.AccountsManager" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAQAAAAAAAQAAAAIAAAAAAAAAAAACgAAAAAAAAAAA=</HashCode>
+      <FileName>CustomPaintConsoleUI\AccountsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.CustomPaintConsoleUI.App" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CustomPaintConsoleUI\AppStart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.CustomPaintConsoleUI.DrawingArea" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAAAAAAAAAAAAAAAAAAIADAAAAAAAAAAA=</HashCode>
+      <FileName>CustomPaintConsoleUI\DrawingArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Task_2._1._2.Program" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Task_2._1._2.Figures.Point" Collapsed="true">
+    <Position X="17" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAABAAAAAAAAAYiA=</HashCode>
+      <FileName>Figures\Point.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
