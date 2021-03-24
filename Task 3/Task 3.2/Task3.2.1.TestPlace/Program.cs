@@ -32,16 +32,25 @@ namespace Task3._2._1.TestPlace
 
             var test3 = new DynamicArray<int>();
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 10; i++)
             {
                 test3.Add(i);
             }
+            
             ShowArray(test3);
-            test3.Insert(8, 228);
-            ShowArray(test3);
-            foreach (var item in test3)
+
+            var testcycle = new CycledDynamicArray<int>(test3);
+
+             var cnt = 0;
+            foreach (var item in testcycle)
             {
                 Console.WriteLine(item);
+                cnt++;
+                if (cnt > 30)
+                {
+                    break;
+                }
+                    
             }
         }
 
@@ -49,7 +58,7 @@ namespace Task3._2._1.TestPlace
         {
             Console.WriteLine($"Length = {dynamicArray.Length}; Capacity = {dynamicArray.Capacity}");
 
-            for (int i = 0; i < dynamicArray.Length; i++)
+            for (int i = 0 - dynamicArray.Length; i < dynamicArray.Length; i++)
             {
                 Console.WriteLine($"Array[{i}] = {dynamicArray[i]}");
             }

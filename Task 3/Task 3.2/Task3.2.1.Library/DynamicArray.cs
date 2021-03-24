@@ -12,7 +12,7 @@ namespace Task3._2._1.Library
      * свой собственный класс DynamicArray<T>, представляющий собой массив с запасом, хранящий
      * объекты произвольных типов 
      */
-    public class DynamicArray<T> : IEnumerable, IEnumerable<T>
+    public class DynamicArray<T> : IEnumerable, IEnumerable<T>, ICloneable
     {
         private T[] _array;
 
@@ -62,12 +62,12 @@ namespace Task3._2._1.Library
         /// Increases the capacity to the required value, if needed.
         /// (The array will grow as well)
         /// </summary>
-        private void IncreaseCapacity(int requiredValue)
+        private void IncreaseCapacity(int requiredValue) // 2*
         {
             if (requiredValue <= Capacity)
                 return;
 
-            int newCapacity = Capacity;
+            int newCapacity = Capacity == 0 ? 8 : Capacity;
 
             while (newCapacity < requiredValue) { newCapacity *= 2; }
 
@@ -116,6 +116,26 @@ namespace Task3._2._1.Library
             Length -= numberOfPos;
         }
 
+        /// <summary>
+        /// Возможность ручного изменения значения Capacity с сохранением уцелевших данных
+        /// (данные за пределами новой Capacity сохранять не нужно).
+        /// </summary>
+        public void SetCapacity(int newCapacity) // 2*
+        {
+            if (newCapacity < 0)
+                throw new ArgumentException("Argument must be positive");
+
+            if (Capacity == newCapacity)
+                return;
+
+            T[] newArray = new T[newCapacity];
+            int newLength = Length > newCapacity ? newCapacity : Length;
+
+            Array.Copy(_array, newArray, newLength);
+
+            Length = newLength;
+            _array = newArray;
+        }
 
         /// <summary>
         /// Метод Add, добавляющий в конец массива один элемент. При нехватке места для
@@ -183,6 +203,20 @@ namespace Task3._2._1.Library
 
 
         /// <summary>
+        /// Добавить метод ToArray, возвращающий новый массив (обычный), содержащий все
+        /// содержащиеся в текущем динамическом массиве объекты.
+        /// </summary>
+        public T[] ToArray() // 4*
+        {
+            T[] newArray = new T[Length];
+
+            Array.Copy(_array, newArray, Length);
+
+            return newArray;
+        }
+
+
+        /// <summary>
         /// Метод, реализующий интерфейс IEnumerable.
         /// </summary>
         IEnumerator IEnumerable.GetEnumerator() => (IEnumerator)GetEnumerator(); // 10
@@ -192,27 +226,55 @@ namespace Task3._2._1.Library
         /// </summary>
         public IEnumerator<T> GetEnumerator() => new DynamicArrayEnum<T>(this); // 10
 
+        /// <summary>
+        /// Реализовать интерфейс ICloneable для создания копии массива.
+        /// </summary>
+        public object Clone() // 3*
+        {
+            DynamicArray<T> dyClone = new DynamicArray<T>(this);
+            dyClone.SetCapacity(Capacity);
+
+            return dyClone;
+        }
 
         /// <summary>
         /// Индексатор, позволяющий работать с элементом с указанным номером. При выходе за
         /// границу массива должно генерироваться исключение ArgumentOutOfRangeException.
+        /// * Доступ к элементам с конца при использовании отрицательного индекса (−1: последний,
+        /// −2: предпоследний и т.д.).
         /// </summary>
-        public T this[int i] // 11
+        public T this[int index] // 11
         {
             get
             {
-                if (i >= Length || i < 0)
-                    throw new ArgumentOutOfRangeException();
+                index = IndexHelper(index);
 
-                return _array[i];
+                return _array[index];
             }
             set
             {
-                if (i >= Length || i < 0)
-                    throw new ArgumentOutOfRangeException();
+                index = IndexHelper(index);
 
-                _array[i] = value;
+                _array[index] = value;
             }
         }
+
+        /// <summary>
+        /// Check and return correct index
+        /// </summary>
+        private int IndexHelper(int index)
+        {
+            if (index >= Length || index < 0 - Length)
+                throw new ArgumentOutOfRangeException();
+
+            if (index >= 0)
+            {
+                return index;
+            }
+            else
+            {
+                return index + Length;
+            }
+        } //1*
     }
 }
