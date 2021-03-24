@@ -181,22 +181,16 @@ namespace Task3._2._1.Library
             return true;
         }
 
+
         /// <summary>
         /// Метод, реализующий интерфейс IEnumerable.
         /// </summary>
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => (IEnumerator)GetEnumerator(); // 10
 
         /// <summary>
         /// Метод, реализующий интерфейс IEnumerable<T>.
         /// </summary>
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
+        public IEnumerator<T> GetEnumerator() => new DynamicArrayEnum<T>(this); // 10
 
 
         /// <summary>

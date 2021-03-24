@@ -37,13 +37,16 @@ namespace Task3._2._1.TestPlace
                 test3.Add(i);
             }
             ShowArray(test3);
-            test3.Insert(9, 228);
+            test3.Insert(8, 228);
             ShowArray(test3);
+            foreach (var item in test3)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         static void ShowArray(DynamicArray<int> dynamicArray)
         {
-            Console.WriteLine(nameof(dynamicArray));
             Console.WriteLine($"Length = {dynamicArray.Length}; Capacity = {dynamicArray.Capacity}");
 
             for (int i = 0; i < dynamicArray.Length; i++)
