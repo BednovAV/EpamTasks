@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task3._2._1.Library
+namespace Task3._2._1.Library.Enumerators
 {
     public class DynamicArrayEnum<T> : IEnumerator<T>
     {
