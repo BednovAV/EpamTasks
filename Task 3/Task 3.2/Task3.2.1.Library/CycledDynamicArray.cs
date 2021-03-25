@@ -14,8 +14,10 @@ namespace Task3._2._1.Library
         public CycledDynamicArray(int capacity): base(capacity) { }
 
         public CycledDynamicArray(IEnumerable<T> source): base(source) { }
-        IEnumerator IEnumerable.GetEnumerator() => (IEnumerator)GetEnumerator(); // 10
 
-        public new IEnumerator<T> GetEnumerator() => new CycledDynamicArrayEnum<T>(this); // 10
+        IEnumerator IEnumerable.GetEnumerator() => (IEnumerator)GetEnumerator();
+
+        public new IEnumerator<T> GetEnumerator() => new CycledDynamicArrayEnum<T>(this); 
+        
     }
 }

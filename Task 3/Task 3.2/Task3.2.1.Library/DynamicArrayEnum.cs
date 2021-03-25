@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Task3._2._1.Library
 {
-    class DynamicArrayEnum<T> : IEnumerator<T>
+    public class DynamicArrayEnum<T> : IEnumerator<T>
     {
-        private DynamicArray<T> _array;
+        protected DynamicArray<T> _array;
 
-        private int position = -1;
+        protected int position = -1;
 
         public DynamicArrayEnum(DynamicArray<T> array)
         {
@@ -37,7 +37,7 @@ namespace Task3._2._1.Library
 
         public void Dispose()
         {
-            //throw new NotImplementedException();
+            //TODO: dont know what todo
         }
 
         public bool MoveNext()

@@ -7,41 +7,11 @@ using System.Threading.Tasks;
 
 namespace Task3._2._1.Library
 {
-    class CycledDynamicArrayEnum<T> : IEnumerator<T>
+    public class CycledDynamicArrayEnum<T> : DynamicArrayEnum<T>, IEnumerator<T>
     {
-        private CycledDynamicArray<T> _array;
+        public CycledDynamicArrayEnum(CycledDynamicArray<T> array) : base(array) { }
 
-        private int position = -1;
-
-        public CycledDynamicArrayEnum(CycledDynamicArray<T> array) 
-        { 
-            _array = array;
-        }
-
-
-        public T Current
-        {
-            get
-            {
-                try
-                {
-                    return _array[position];
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-        }
-
-        object IEnumerator.Current => Current;
-
-        public void Dispose()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public bool MoveNext()
+        public new bool MoveNext()
         {
             position++;
 
@@ -49,12 +19,7 @@ namespace Task3._2._1.Library
             {
                 position = 0;
             }
-            return true;
-        }
-
-        public void Reset()
-        {
-            position = -1;
+            return (true);
         }
     }
 }
