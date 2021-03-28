@@ -9,41 +9,54 @@ namespace Task_3._1._1
 {
     public class GameLogic
     {
-        private DynamicArray<int> _members;
+        private DynamicArray<int> _players;
 
         /// <summary>
         /// Returns a sequence of members
         /// </summary>
-        public IEnumerable<int> Members { get => _members; }
+        public IEnumerable<int> Members { get => _players; }
 
         /// <summary>
         /// Returns a count of members
         /// </summary>
-        public int Count { get => _members.Length; }
+        public int Count { get => _players.Length; }
 
         private int Current { get; set; }
 
 
         public GameLogic(int numberOfPlayers)
         {
-            _members = new DynamicArray<int>(Enumerable.Range(1, numberOfPlayers));
+            if (numberOfPlayers < 0)
+                throw new ArgumentException("The number of players must be positive");
+
+            _players = new DynamicArray<int>(Enumerable.Range(1, numberOfPlayers));
             Current = -1;
         }
 
-        private int IndexHelper(int index) => index % _members.Length;
+        private int IndexHelper(int index) => index % _players.Length;
 
         /// <summary>
         /// Simulated game step
         /// </summary>
         public int Step(int stepWidth)
         {
-            Current = IndexHelper(Current + stepWidth - 1);
+            if (Count < stepWidth)
+                throw new ArgumentException("Step width can not be more than number of players");
 
-            int deleted = _members[IndexHelper(Current + 1)];
+            if (Count != 0)
+            {
+                Current = IndexHelper(Current + stepWidth - 1);
 
-            _members.Remove(_members[IndexHelper(Current + 1)]);
+                int deleted = _players[IndexHelper(Current + 1)];
 
-            return deleted;
+                _players.Remove(_players[IndexHelper(Current + 1)]);
+
+                return deleted;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
 
