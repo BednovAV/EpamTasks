@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task3._1._2
 {
-    public static class TextAnalyzerLogic
+    internal static class TextAnalyzerLogic
     {
         /// <summary>
         /// Returns a collection of key/value pairs.

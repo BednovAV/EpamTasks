@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helpers;
+using System;
 
 namespace Task_3._1._1
 {
@@ -10,6 +7,8 @@ namespace Task_3._1._1
     {
         public static void StartMenu()
         {
+            Console.Clear();
+
             string startMenuText = "Выберите действие:" + Environment.NewLine
                                  + "\t1. Начать новую игру" + Environment.NewLine
                                  + "\t2. Выйти";

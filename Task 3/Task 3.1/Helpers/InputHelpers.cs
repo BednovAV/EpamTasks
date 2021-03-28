@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task_3._1._1
+namespace Helpers
 {
     public static class InputHelpers
     {

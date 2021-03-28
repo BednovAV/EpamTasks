@@ -3,12 +3,8 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Task_3._1._1</RootNamespace>
+    <RootNamespace>Task3._1._2</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Helpers\Helpers.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Task3.2.1.Library">

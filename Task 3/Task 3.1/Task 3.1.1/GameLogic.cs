@@ -7,7 +7,7 @@ using Task3._2._1.Library;
 
 namespace Task_3._1._1
 {
-    public class GameLogic
+    internal class GameLogic
     {
         private DynamicArray<int> _players;
 
