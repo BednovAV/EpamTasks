@@ -38,7 +38,8 @@ namespace Task3._1._2
                 }
             }
 
-            return vocabulary;
+            return vocabulary.OrderByDescending(item => item.Value)
+                             .ToDictionary(pair => pair.Key, pair => pair.Value);
         }
 
         private string[] TextSplit(string text)

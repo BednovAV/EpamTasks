@@ -57,7 +57,7 @@ namespace Task3._1._2
             Console.WriteLine("Список использованных слов:");
             Console.WriteLine("        Word|  Count");
             Console.WriteLine(new String('-', 22));
-            foreach (var item in dictionary.OrderByDescending(item => item.Value))
+            foreach (var item in dictionary)
             {
                 Console.WriteLine("{0, 12}|{1, 7}", item.Key, item.Value);
             }
