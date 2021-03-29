@@ -6,15 +6,22 @@ using System.Threading.Tasks;
 
 namespace Task3._1._2
 {
-    internal static class TextAnalyzerLogic
+    internal class TextAnalyzerLogic
     {
+        public string Text { get; set; }
+
+        public TextAnalyzerLogic() => Text = string.Empty;
+
+        public TextAnalyzerLogic(string text) => Text = text;
+
+
         /// <summary>
         /// Returns a collection of key/value pairs.
         /// The key is a word, the value is the number of its repetitions in the text.
         /// </summary>
-        public static IDictionary<string, int> WordsFrequency(string text)
+        public IDictionary<string, int> WordsFrequency()
         {
-            string[] words = TextSplit(text);
+            string[] words = TextSplit(Text);
 
             var vocabulary = new Dictionary<string, int>();
             foreach (var item in words)
@@ -34,7 +41,7 @@ namespace Task3._1._2
             return vocabulary;
         }
 
-        private static string[] TextSplit(string text)
+        private string[] TextSplit(string text)
         {
             var separators = new List<char>() { ' ' };
             foreach (var item in text)
