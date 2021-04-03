@@ -19,7 +19,7 @@ namespace CustomStringLibrary
     {
         private char[] _content;
 
-        public int Length { get => _content.Length; }
+        public int Length => _content.Length; 
 
         public CustomString()
         {
@@ -78,7 +78,6 @@ namespace CustomStringLibrary
         /// <summary>
         /// Посимвольное сравнение двух строк.
         /// </summary>
-        /// <param name="string"></param>
         public bool Equals(CustomString str)
         {
             if (str == null)
@@ -101,17 +100,7 @@ namespace CustomStringLibrary
             }
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is CustomString cs)
-            {
-                return this.Equals(cs);
-            }
-            else
-            {
-                return false;
-            }
-        }
+        public override bool Equals(object obj) => this.Equals(obj as CustomString);
 
         public void Append(CustomString str)
         {

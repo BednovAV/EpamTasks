@@ -2,10 +2,14 @@
 
 namespace Task_2._1._2.Figures.RoundShapes
 {
+
+
     public class Circle : Figure
     {
         public Point Centre { get; }
+
         public int Radius { get; }
+
         public Circle(Point p, int r) : base("Окружность")
         {
             Centre = p;
@@ -13,7 +17,9 @@ namespace Task_2._1._2.Figures.RoundShapes
         }
 
         public override double Length() => 2 * Math.PI * Radius;
+        
         public override double Area() => 0;
+        
         public override string ToString()
             => String.Format($"{Name}: центр - {Centre}, радиус - {Radius}");
     }
