@@ -44,7 +44,7 @@ namespace Task3._1._2
 
         private string[] TextSplit(string text)
         {
-            var separators = new List<char>() { ' ' };
+            var separators = new HashSet<char>() { ' ' };
             foreach (var item in text)
             {
                 if (char.IsPunctuation(item) && !(separators.Contains(item)) && item != '-')
