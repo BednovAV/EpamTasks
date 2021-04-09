@@ -14,10 +14,10 @@ namespace Task3._3._3
 
         public void OrderPizza(Pizzeria pizzeria, PizzaType pizzaType)
         {
+            Console.WriteLine($"[{Name}] Заказываю пиццу {pizzaType}");
+
             //event subscription
             pizzeria.PizzaIsReady += GetPizza;
-
-            Console.WriteLine($"[{Name}] Заказываю пиццу {pizzaType}");
 
             // ordering pizza
             pizzeria.Order(pizzaType);

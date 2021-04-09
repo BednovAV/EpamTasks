@@ -10,6 +10,7 @@ namespace Task3._3._3
     public class Pizzeria
     {
         public Pizza TastyPizza { get; private set; }
+
         public event Action<Pizzeria> PizzaIsReady = delegate { };
 
         public void Order(PizzaType pizzaType)
