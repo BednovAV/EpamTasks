@@ -47,7 +47,7 @@ namespace Task3._1._2
             var separators = new HashSet<char>() { ' ' };
             foreach (var item in text)
             {
-                if (char.IsPunctuation(item) && !(separators.Contains(item)) && item != '-')
+                if (char.IsPunctuation(item) && item != '-')
                     separators.Add(item);
             }
 
