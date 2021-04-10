@@ -55,16 +55,14 @@ namespace Task3._2._1.TestPlace
 
             var test = new DynamicArray<int>() { 0, 1, 2, 3, 4, 5};
             ShowArray(test);
-            test.LeftShift(0, 1);
+            test.Insert(0, 9);
+            test.Insert(4, 9);
+            test.Insert(8, 9);
             ShowArray(test);
-            //test.Insert(0, 9);
-            //test.Insert(4, 9);
-            //test.Insert(8, 9);
-            //ShowArray(test);
-            //test.Remove(8);
-            //test.Remove(4);
-            //test.Remove(0);
-            //ShowArray(test);
+            test.Remove(9);
+            test.Remove(9);
+            test.Remove(9);
+            ShowArray(test);
 
 
 

@@ -185,11 +185,11 @@ namespace Task3._2._1.Library
         }
 
         /// <summary>
-            /// Индексатор, позволяющий работать с элементом с указанным номером. При выходе за
-            /// границу массива должно генерироваться исключение ArgumentOutOfRangeException.
-            /// * Доступ к элементам с конца при использовании отрицательного индекса (−1: последний,
-            /// −2: предпоследний и т.д.).
-            /// </summary>
+        /// Индексатор, позволяющий работать с элементом с указанным номером. При выходе за
+        /// границу массива должно генерироваться исключение ArgumentOutOfRangeException.
+        /// * Доступ к элементам с конца при использовании отрицательного индекса (−1: последний,
+        /// −2: предпоследний и т.д.).
+        /// </summary>
         public T this[int index] // 11
         {
             get
@@ -262,19 +262,20 @@ namespace Task3._2._1.Library
         /// starting from the specified position, to the left by the specified number of positions.
         /// (Elements shifted to the left of the array are removed)
         /// </summary>
-        public void LeftShift(int position, int numberOfPos)
+        private void LeftShift(int position, int numberOfPos)
         {
-            int insertPosition = position - numberOfPos < 0? 0 : position - numberOfPos;
+            int insertPosition;
+            if (position - numberOfPos < 0)
+            {
+                insertPosition = 0;
+                position += numberOfPos;
+            }
+            else
+            {
+                insertPosition = position - numberOfPos;
+            }
 
             Array.Copy(_array, position, _array, insertPosition, Length - position);
-
-            //for (int i = position; i < Length; i++)
-            //{
-            //    if (i - numberOfPos >= 0)
-            //    {
-            //        _array[i - numberOfPos] = _array[i];
-            //    }
-            //}
 
             Length -= numberOfPos;
         }
