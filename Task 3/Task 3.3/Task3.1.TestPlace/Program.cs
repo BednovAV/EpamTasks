@@ -30,15 +30,15 @@ namespace Task3._1.TestPlace
 
             #region TASK 3.3.3
 
-            Pizzeria pizzeria = new Pizzeria();
+            //Pizzeria pizzeria = new Pizzeria();
 
-            User user1 = new User("Иван");
-            User user2 = new User("Андрей");
-            User user3 = new User("Дмитрий");
+            //User user1 = new User("Иван");
+            //User user2 = new User("Андрей");
+            //User user3 = new User("Дмитрий");
 
-            user1.OrderPizza(pizzeria, PizzaType.Classic);
-            user2.OrderPizza(pizzeria, PizzaType.Margarita);
-            user3.OrderPizza(pizzeria, PizzaType.Pepperoni);
+            //user1.OrderPizza(pizzeria, PizzaType.Classic);
+            //user2.OrderPizza(pizzeria, PizzaType.Margarita);
+            //user3.OrderPizza(pizzeria, PizzaType.Pepperoni);
 
             #endregion
         }

@@ -37,25 +37,14 @@ namespace Task3._3._2
         }
 
         private static StringType CheckChar(char c)
-        {
-            if (c >= 'А' && c <= 'я')
+            => c switch
             {
-                return StringType.Russian;
-            }
-            else if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-            {
-                return StringType.English;
-            }
-            else if(char.IsDigit(c))
-            {
-                return StringType.Number;
-            }
-            else
-            {
-                return StringType.Mixed;
-            }
-        }
-    }
+                >= 'А' and <= 'я' => StringType.Russian,
+                (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') => StringType.English,
+                >= '0' and <= '9' => StringType.Number,
+                _ => StringType.Mixed
+            };
+}
 
     public enum StringType
     {
