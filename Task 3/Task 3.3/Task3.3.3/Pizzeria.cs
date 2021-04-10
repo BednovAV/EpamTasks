@@ -16,10 +16,10 @@ namespace Task3._3._3
         public void Order(PizzaType pizzaType)
         {
             Console.WriteLine($"[Пиццерия] Заказ на пиццу \"{pizzaType}\" получен");
-            Cooking(pizzaType);
+            Cook(pizzaType);
         }
 
-        private void Cooking(PizzaType pizzaType)
+        private void Cook(PizzaType pizzaType)
         {
             Console.WriteLine($"[Пиццерия] Приготовление пиццы \"{pizzaType}\" начато");
             

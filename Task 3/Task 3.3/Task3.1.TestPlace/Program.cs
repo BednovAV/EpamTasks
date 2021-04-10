@@ -26,6 +26,7 @@ namespace Task3._1.TestPlace
             //Console.WriteLine("П".CheckLanguage());
             //Console.WriteLine("ЮD".CheckLanguage());
             //Console.WriteLine("dssd".CheckLanguage());
+            //Console.WriteLine("".CheckLanguage());
             #endregion
 
             #region TASK 3.3.3

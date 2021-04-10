@@ -19,9 +19,9 @@ namespace Task3._3._2
         public static StringType CheckLanguage(this string text)
         {
             if (text == string.Empty)
-                return StringType.Mixed;
+                return StringType.None;
 
-            StringType currentType = CheckChar(text.First());
+            StringType currentType = CheckChar(text[0]);
 
             if (currentType == StringType.Mixed)
                 return StringType.Mixed;
@@ -39,15 +39,16 @@ namespace Task3._3._2
         private static StringType CheckChar(char c)
             => c switch
             {
-                >= 'А' and <= 'я' => StringType.Russian,
+                (>= 'А' and <= 'я') or 'ё' or 'Ё'          => StringType.Russian,
                 (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') => StringType.English,
-                >= '0' and <= '9' => StringType.Number,
-                _ => StringType.Mixed
+                >= '0' and <= '9'                          => StringType.Number,
+                _                                          => StringType.Mixed
             };
 }
 
     public enum StringType
     {
+        None = 0,
         Russian,
         English,
         Number,

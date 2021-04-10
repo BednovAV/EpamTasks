@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Task3._3._1
@@ -20,10 +21,11 @@ namespace Task3._3._1
             for (int i = 0; i < array.Length; i++)
             {
                 array[i] = transform(array[i]);
+         
             }
         }
 
-        public static void Transform(this double[] array, Func<double, double> transform)
+        public static void Transform(this uint[] array, Func<uint, uint> transform)
         {
             for (int i = 0; i < array.Length; i++)
             {
@@ -39,16 +41,155 @@ namespace Task3._3._1
             }
         }
 
+        public static void Transform(this ulong[] array, Func<ulong, ulong> transform)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = transform(array[i]);
+            }
+        }
+
+        public static void Transform(this float[] array, Func<float, float> transform)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = transform(array[i]);
+            }
+        }
+
+        public static void Transform(this double[] array, Func<double, double> transform)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = transform(array[i]);
+            }
+        }
+
+        public static void Transform(this byte[] array, Func<byte, byte> transform)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = transform(array[i]);
+            }
+        }
+
+        public static void Transform(this sbyte[] array, Func<sbyte, sbyte> transform)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = transform(array[i]);
+            }
+        }
+
+        public static void Transform(this short[] array, Func<short, short> transform)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = transform(array[i]);
+            }
+        }
+
+        public static void Transform(this ushort[] array, Func<ushort, ushort> transform)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = transform(array[i]);
+            }
+        }
+
+        public static void Transform(this decimal[] array, Func<decimal, decimal> transform)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = transform(array[i]);
+            }
+        }
+
         #endregion
 
         #region SUM
 
         public static int MySum(this int[] array) => array.Sum();
 
-        public static double MySum(this double[] array) => array.Sum();
+        public static uint MySum(this uint[] array)
+        {
+            uint sum = 0;
+
+            foreach (var item in array)
+            {
+                sum += item;
+            }
+
+            return sum;
+        }
 
         public static long MySum(this long[] array) => array.Sum();
 
+        public static ulong MySum(this ulong[] array)
+        {
+            ulong sum = 0;
+
+            foreach (var item in array)
+            {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static float MySum(this float[] array) => array.Sum();
+
+        public static double MySum(this double[] array) => array.Sum();
+
+        public static byte MySum(this byte[] array)
+        {
+            byte sum = 0;
+
+            foreach (var item in array)
+            {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static sbyte MySum(this sbyte[] array)
+        {
+            sbyte sum = 0;
+
+            foreach (var item in array)
+            {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static short MySum(this short[] array)
+        {
+            short sum = 0;
+
+            foreach (var item in array)
+            {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static ushort MySum(this ushort[] array)
+        {
+            ushort sum = 0;
+
+            foreach (var item in array)
+            {
+                sum += item;
+            }
+
+            return sum;
+        }
+
+        public static decimal MySum(this decimal[] array) => array.Sum();
         #endregion
 
         #region AVERAGE
@@ -69,6 +210,33 @@ namespace Task3._3._1
                     .First()
                     .Key;
 
+        public static uint MostRepeatable(this uint[] array)
+            => array
+                    .GroupBy(item => item)
+                    .OrderByDescending(item => item.Count())
+                    .First()
+                    .Key;
+
+        public static long MostRepeatable(this long[] array)
+            => array
+                    .GroupBy(item => item)
+                    .OrderByDescending(item => item.Count())
+                    .First()
+                    .Key;
+
+        public static ulong MostRepeatable(this ulong[] array)
+            => array
+                    .GroupBy(item => item)
+                    .OrderByDescending(item => item.Count())
+                    .First()
+                    .Key;
+
+        public static float MostRepeatable(this float[] array)
+            => array
+                    .GroupBy(item => item)
+                    .OrderByDescending(item => item.Count())
+                    .First()
+                    .Key;
 
         public static double MostRepeatable(this double[] array)
             => array
@@ -77,7 +245,35 @@ namespace Task3._3._1
                     .First()
                     .Key;
 
-        public static long MostRepeatable(this long[] array)
+        public static byte MostRepeatable(this byte[] array)
+            => array
+                    .GroupBy(item => item)
+                    .OrderByDescending(item => item.Count())
+                    .First()
+                    .Key;
+
+        public static sbyte MostRepeatable(this sbyte[] array)
+            => array
+                    .GroupBy(item => item)
+                    .OrderByDescending(item => item.Count())
+                    .First()
+                    .Key;
+
+        public static short MostRepeatable(this short[] array)
+            => array
+                    .GroupBy(item => item)
+                    .OrderByDescending(item => item.Count())
+                    .First()
+                    .Key;
+
+        public static ushort MostRepeatable(this ushort[] array)
+            => array
+                    .GroupBy(item => item)
+                    .OrderByDescending(item => item.Count())
+                    .First()
+                    .Key;
+
+        public static decimal MostRepeatable(this decimal[] array)
             => array
                     .GroupBy(item => item)
                     .OrderByDescending(item => item.Count())
