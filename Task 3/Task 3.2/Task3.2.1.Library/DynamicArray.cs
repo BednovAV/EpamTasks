@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task3._2._1.Library.Enumerators;
 
 namespace Task3._2._1.Library
 {
@@ -54,68 +53,9 @@ namespace Task3._2._1.Library
         public DynamicArray(IEnumerable<T> source)  // 3
         {
             _array = source.ToArray();
-            Length = source.Count();
+            Length = _array.Length;
         }
 
-
-        /// <summary>
-        /// The method must be called before each addition to the array.
-        /// Increases the capacity to the required value, if needed.
-        /// (The array will grow as well)
-        /// </summary>
-        private void IncreaseCapacity(int requiredValue) // 2*
-        {
-            if (requiredValue <= Capacity)
-                return;
-
-            int newCapacity = Capacity == 0 ? 8 : Capacity;
-
-            while (newCapacity < requiredValue) { newCapacity *= 2; }
-
-            T[] newArray = new T[newCapacity];
-            Array.Copy(_array, newArray, Length);
-            _array = newArray;
-        }
-
-        /// <summary>
-        /// The method shifts the elements of the array, starting from the
-        /// specified position, to the right by the specified number of positions.
-        /// (Increases capacity if needed)
-        /// </summary>
-        private void RightShift(int position, int numberOfPos)
-        {
-            IncreaseCapacity(Length + numberOfPos);
-
-            for (int i = Length - 1; i >= position; i--)
-            {
-                _array[i + numberOfPos] = _array[i];
-            }
-            Length += numberOfPos;
-
-            // write the default values ​​in the vacated cells
-            for (int i = position; i < position + numberOfPos; i++)
-            {
-                _array[i] = default(T);
-            }
-        }
-
-        /// <summary>
-        /// The method shifts the elements of the array(right of the specified position),
-        /// starting from the specified position, to the left by the specified number of positions.
-        /// (Elements shifted to the left of the array are removed)
-        /// </summary>
-        private void LeftShift(int position, int numberOfPos)
-        {
-            for (int i = position; i < Length; i++)
-            {
-                if (i - numberOfPos >= 0)
-                {
-                    _array[i - numberOfPos] = _array[i];
-                }
-            }
-
-            Length -= numberOfPos;
-        }
 
         /// <summary>
         /// Возможность ручного изменения значения Capacity с сохранением уцелевших данных
@@ -124,7 +64,7 @@ namespace Task3._2._1.Library
         public void SetCapacity(int newCapacity) // 2*
         {
             if (newCapacity < 0)
-                throw new ArgumentException("Argument must be positive");
+                throw new ArgumentException("Capacity must be greater than 0");
 
             if (Capacity == newCapacity)
                 return;
@@ -144,7 +84,7 @@ namespace Task3._2._1.Library
         /// </summary>
         public void Add(T value) // 4
         {
-            IncreaseCapacity(Length + 1);
+            EnsureCapacity(Length + 1);
 
             _array[Length] = value;
             Length+= 1;
@@ -158,12 +98,12 @@ namespace Task3._2._1.Library
         /// </summary>
         public void AddRange(IEnumerable<T> sourse) // 5
         {
-            IncreaseCapacity(Length + sourse.Count());
+            var sourseArray = sourse.ToArray();
 
-            foreach(var item in sourse)
-            {
-                _array[Length++] = item;
-            }
+            EnsureCapacity(Length + sourseArray.Length);
+
+            Array.Copy(sourseArray, 0, _array, Length, sourseArray.Length);
+            Length += sourseArray.Length;
         } 
 
 
@@ -225,36 +165,42 @@ namespace Task3._2._1.Library
         /// <summary>
         /// Метод, реализующий интерфейс IEnumerable<T>.
         /// </summary>
-        public IEnumerator<T> GetEnumerator() => new DynamicArrayEnum<T>(this); // 10
+        public virtual IEnumerator<T> GetEnumerator() // 10
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                yield return _array[i];
+            }
+        }
 
         /// <summary>
         /// Реализовать интерфейс ICloneable для создания копии массива.
         /// </summary>
         public object Clone() // 3*
         {
-            DynamicArray<T> dyClone = new DynamicArray<T>(this);
-            dyClone.SetCapacity(Capacity);
+            DynamicArray<T> dyClone = new DynamicArray<T>(Capacity);
+            dyClone.AddRange(this);
 
             return dyClone;
         }
 
         /// <summary>
-        /// Индексатор, позволяющий работать с элементом с указанным номером. При выходе за
-        /// границу массива должно генерироваться исключение ArgumentOutOfRangeException.
-        /// * Доступ к элементам с конца при использовании отрицательного индекса (−1: последний,
-        /// −2: предпоследний и т.д.).
-        /// </summary>
+            /// Индексатор, позволяющий работать с элементом с указанным номером. При выходе за
+            /// границу массива должно генерироваться исключение ArgumentOutOfRangeException.
+            /// * Доступ к элементам с конца при использовании отрицательного индекса (−1: последний,
+            /// −2: предпоследний и т.д.).
+            /// </summary>
         public T this[int index] // 11
         {
             get
             {
-                index = IndexHelper(index);
+                index = ResolveIndex(index);
 
                 return _array[index];
             }
             set
             {
-                index = IndexHelper(index);
+                index = ResolveIndex(index);
 
                 _array[index] = value;
             }
@@ -263,7 +209,7 @@ namespace Task3._2._1.Library
         /// <summary>
         /// Check and return correct index
         /// </summary>
-        private int IndexHelper(int index)
+        private int ResolveIndex(int index)
         {
             if (index >= Length || index < 0 - Length)
                 throw new ArgumentOutOfRangeException();
@@ -277,5 +223,60 @@ namespace Task3._2._1.Library
                 return index + Length;
             }
         } //1*
+
+        /// <summary>
+        /// The method must be called before each addition to the array.
+        /// Increases the capacity to the required value, if needed.
+        /// (The array will grow as well)
+        /// </summary>
+        private void EnsureCapacity(int requiredValue) // 2*
+        {
+            if (requiredValue <= Capacity)
+                return;
+
+            int newCapacity = requiredValue * 2;
+
+            T[] newArray = new T[newCapacity];
+            Array.Copy(_array, newArray, Length);
+            _array = newArray;
+        }
+
+        /// <summary>
+        /// The method shifts the elements of the array, starting from the
+        /// specified position, to the right by the specified number of positions.
+        /// (Increases capacity if needed)
+        /// </summary>
+        private void RightShift(int position, int numberOfPos)
+        {
+            EnsureCapacity(Length + numberOfPos);
+
+            Array.Copy(_array, position, _array, position + numberOfPos, Length - position);
+            Length += numberOfPos;
+
+            // write the default values ​​in the vacated cells
+            Array.Fill(_array, default(T), position, numberOfPos);
+        }
+
+        /// <summary>
+        /// The method shifts the elements of the array,
+        /// starting from the specified position, to the left by the specified number of positions.
+        /// (Elements shifted to the left of the array are removed)
+        /// </summary>
+        public void LeftShift(int position, int numberOfPos)
+        {
+            int insertPosition = position - numberOfPos < 0? 0 : position - numberOfPos;
+
+            Array.Copy(_array, position, _array, insertPosition, Length - position);
+
+            //for (int i = position; i < Length; i++)
+            //{
+            //    if (i - numberOfPos >= 0)
+            //    {
+            //        _array[i - numberOfPos] = _array[i];
+            //    }
+            //}
+
+            Length -= numberOfPos;
+        }
     }
 }
