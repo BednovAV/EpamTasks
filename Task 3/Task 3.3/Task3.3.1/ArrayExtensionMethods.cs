@@ -196,9 +196,26 @@ namespace Task3._3._1
 
         public static double MyAverage(this int[] array) => array.Average();
 
-        public static double MyAverage(this double[] array) => array.Average();
+        public static double MyAverage(this uint[] array) => (double)array.MySum() / array.Length;
 
         public static double MyAverage(this long[] array) => array.Average();
+
+        public static double MyAverage(this ulong[] array) => (double)array.MySum() / array.Length;
+
+        public static float MyAverage(this float[] array) => array.Average();
+
+        public static double MyAverage(this double[] array) => array.Average();
+
+        public static double MyAverage(this byte[] array) => (double)array.MySum() / array.Length;
+
+        public static double MyAverage(this sbyte[] array) => (double)array.MySum() / array.Length;
+
+        public static double MyAverage(this short[] array) => (double)array.MySum() / array.Length;
+
+        public static double MyAverage(this ushort[] array) => (double)array.MySum() / array.Length;
+
+        public static decimal MyAverage(this decimal[] array) => array.Average();
+
 
         #endregion
 
