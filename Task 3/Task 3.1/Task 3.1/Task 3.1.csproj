@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Task_3._1</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Task 3.1.1\Task 3.1.1.csproj" />
+    <ProjectReference Include="..\Task3.1.2\Task3.1.2.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Task3._1._2</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Task3.2.1.Library">
+      <HintPath>..\..\Task 3.2\Task3.2.1.Library\bin\Debug\net5.0\Task3.2.1.Library.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
