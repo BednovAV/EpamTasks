@@ -52,7 +52,7 @@ namespace FIleManagementSystem.UI
                 switch (select)
                 {
                     case "1":
-                        ObservationMode();
+                        TrackingMode();
                         break;
                     case "2":
                         BackChanges();
@@ -69,9 +69,21 @@ namespace FIleManagementSystem.UI
             throw new NotImplementedException();
         }
 
-        private void ObservationMode()
+        private void TrackingMode()
         {
-            throw new NotImplementedException();
+            _logic.Saved += OnSaved;
+            _logic.TrackingModeStart();
+
+            Console.WriteLine($"Режим наблюдения включен ({_logic.Path})");
+            Console.WriteLine("Нажмите на любую клавишу чтобы выйти");
+            Console.ReadKey();
+
+            _logic.TrackingModeEnd();
+        }
+
+        private void OnSaved(object sender)
+        {
+            Console.WriteLine($"{DateTime.Now.ToString()} Изменения зафиксированы");
         }
     }
 }
