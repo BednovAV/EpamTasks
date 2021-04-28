@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FIleManagementSystem.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace FIleManagementSystem.Logic
 {
-    public class DirectoryWatcher
+    public class DirectoryWatcher : IDirectoryWatcher
     {
         public event Action<object> Saved = delegate { };
 
-        private BackupLogic _backupLogic;
+        private IBackupLogic _backupLogic;
 
         private FileSystemWatcher _watcher;
-
-        public DirectoryWatcher(BackupLogic backupLogic) => _backupLogic = backupLogic;
 
         /// <summary>
         /// Starts tracking mode
         /// </summary>
-        public void Start()
+        public void Start(IBackupLogic backupLogic)
         {
+            _backupLogic = backupLogic;
+
             _watcher = new FileSystemWatcher(_backupLogic.Path);
 
             _watcher.NotifyFilter = NotifyFilters.Attributes
