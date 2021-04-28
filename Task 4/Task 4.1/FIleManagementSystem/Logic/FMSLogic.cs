@@ -43,5 +43,9 @@ namespace FIleManagementSystem.Logic
             _directoryWatcher.Saved -= Saved;
             _directoryWatcher.End();
         }
+
+        public IEnumerable<DateTime> GetCommitList() => _backupLogic.GetCommitList();
+
+        public void RollBackFolder(DateTime dateTime) => _backupLogic.RollbackFolder(dateTime);
     }
 }

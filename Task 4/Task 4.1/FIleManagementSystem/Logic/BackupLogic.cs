@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,27 +13,37 @@ namespace FIleManagementSystem.Logic
 {
     public class BackupLogic
     {
-        public string Path { get; }
+        /*
+         * вынести сервисдиректори в поле
+         */
 
-        public BackupLogic(string path) => Path = path;
+        public string Path { get => _directory.FullName; }
+
+        private DirectoryInfo _directory;
+        private DirectoryInfo _serviceDirectory;
+
+        public BackupLogic(string path)
+        {
+            if (!Directory.Exists(path))
+                throw new IncorrectPathException("Указанный путь не существует");
+
+            _directory = new DirectoryInfo(path);
+            _serviceDirectory = new DirectoryInfo($@"{path}\.fms");
+        }
 
         public void BackupDirectory()
         {
-            if (!Directory.Exists(Path))
-                throw new IncorrectPathException("Указанный путь не существует");
+            
 
-            var directory = new DirectoryInfo(Path);
-            var serviceDirectory = new DirectoryInfo($@"{Path}\.fms");
-
-            if (!serviceDirectory.Exists)
+            if (!_serviceDirectory.Exists)
             {
-                serviceDirectory.Create();
-                serviceDirectory.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                _serviceDirectory.Create();
+                _serviceDirectory.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             }
 
             var files = new List<BackupFile>();
 
-            foreach (var item in directory.GetFiles("*.txt", SearchOption.AllDirectories))
+            foreach (var item in _directory.GetFiles("*.txt", SearchOption.AllDirectories))
             {
                 files.Add(new BackupFile 
                 { 
@@ -42,10 +53,23 @@ namespace FIleManagementSystem.Logic
                 });
             }
 
-            var backupFilePath = $@"{serviceDirectory.FullName}\{DateTime.Now.ToString().Replace(':', '-')}.json";
+            var backupFilePath = $@"{_serviceDirectory.FullName}\{DateTime.Now.ToString().Replace(':', '-')}.json";
             var backupFileContent = JsonConvert.SerializeObject(files);
 
             File.WriteAllText(backupFilePath, backupFileContent);
         }
+
+        public void RollbackFolder(DateTime dateTime)
+        {
+            _directory.Delete(true);
+            var directoryDataJson = _serviceDirectory.GetFiles()
+                                                     .FirstOrDefault(item => item.Name == dateTime.ToString()
+                                                                                                  .Replace(':', '-'));
+        }
+
+        public IEnumerable<DateTime> GetCommitList() 
+            => _serviceDirectory.GetFiles()
+                                .Select(item => item.Name.Substring(0, 19)) // cut the date from the file name
+                                .Select(item => DateTime.ParseExact(item, "dd.MM.yyyy HH-mm-ss", CultureInfo.InvariantCulture));
     }
 }

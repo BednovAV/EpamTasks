@@ -66,7 +66,19 @@ namespace FIleManagementSystem.UI
 
         private void BackChanges()
         {
-            throw new NotImplementedException();
+            var commitList = new List<DateTime>(_logic.GetCommitList());
+
+
+            Console.WriteLine($"Список фиксаций({_logic.Path}):");
+            for (int i = 0; i < commitList.Count; i++)
+            {
+                Console.WriteLine($"\t{i}. {commitList[i].ToString()}");
+            }
+
+            int select = ConsoleUIHelpers.InputValueInRange("Ваш выбор: ", 0, commitList.Count);
+
+
+            _logic.RollBackFolder(commitList[select]);
         }
 
         private void TrackingMode()
