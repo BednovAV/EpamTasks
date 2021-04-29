@@ -1,17 +1,20 @@
-﻿using FIleManagementSystem.Logic;
+﻿using FIleManagementSystem.Dependency;
+using FIleManagementSystem.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FIleManagementSystem.UI
 {
     public class ConsoleUI
     {
-        private FMSLogic _logic;
+        private IBackupLogic _backupLogic;
+        private IDirectoryWatcher _directoryWatcher;
 
-        public ConsoleUI() => _logic = new FMSLogic();
+        public ConsoleUI()
+        {
+            _backupLogic = DependencyResolver.BackupLogic;
+            _directoryWatcher = DependencyResolver.DirectoryWatcher;
+        }
 
         public void StartMenu()
         {
@@ -25,7 +28,7 @@ namespace FIleManagementSystem.UI
                 Console.WriteLine("Указанной директории не существует");
             }
 
-            _logic.Path = path;
+            _backupLogic.Path = path;
 
             MainMenu();
         }
@@ -40,7 +43,7 @@ namespace FIleManagementSystem.UI
 
             Console.Clear();
 
-            Console.WriteLine(_logic.Path);
+            Console.WriteLine(_backupLogic.Path);
             Console.WriteLine();
 
             string select = string.Empty;
@@ -66,10 +69,10 @@ namespace FIleManagementSystem.UI
 
         private void BackChanges()
         {
-            var commitList = new List<DateTime>(_logic.GetCommitList());
+            var commitList = new List<DateTime>(_backupLogic.GetCommitList());
 
 
-            Console.WriteLine($"Список фиксаций({_logic.Path}):");
+            Console.WriteLine($"Список фиксаций({_backupLogic.Path}):");
             for (int i = 0; i < commitList.Count; i++)
             {
                 Console.WriteLine($"\t{i}. {commitList[i].ToString()}");
@@ -78,19 +81,21 @@ namespace FIleManagementSystem.UI
             int select = ConsoleUIHelpers.InputValueInRange("Ваш выбор: ", 0, commitList.Count);
 
 
-            _logic.RollBackFolder(commitList[select]);
+            _backupLogic.RollbackFolder(commitList[select]);
         }
 
         private void TrackingMode()
         {
-            _logic.Saved += OnSaved;
-            _logic.TrackingModeStart();
+            _directoryWatcher.Saved += OnSaved;
+            _directoryWatcher.Start(_backupLogic);
 
-            Console.WriteLine($"Режим наблюдения включен ({_logic.Path})");
-            Console.WriteLine("Нажмите на любую клавишу чтобы выйти");
-            Console.ReadKey();
-
-            _logic.TrackingModeEnd();
+            using (_directoryWatcher)
+            {
+                Console.WriteLine($"Режим наблюдения включен ({_backupLogic.Path})");
+                Console.WriteLine();
+                Console.WriteLine("Нажмите на любую клавишу чтобы выйти");
+                Console.ReadKey();
+            }
         }
 
         private void OnSaved(object sender)

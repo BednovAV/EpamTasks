@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FIleManagementSystem.Interfaces;
 using FIleManagementSystem.Logic.Entities;
 using FIleManagementSystem.Logic.Exceptions;
@@ -15,27 +13,40 @@ namespace FIleManagementSystem.Logic
 {
     public class BackupLogic : IBackupLogic
     {
-        public string Path { get => _directory.FullName; }
-
         private DirectoryInfo _directory;
         private DirectoryInfo _serviceDirectory;
 
-        public BackupLogic(string path)
-        {
-            if (!Directory.Exists(path))
-                throw new IncorrectPathException("Указанный путь не существует");
+        /// <summary>
+        /// The path to the working directory
+        /// </summary>
+        public string Path 
+        { 
+            
+            get => _directory?.FullName;
 
-            _directory = new DirectoryInfo(path);
-            _serviceDirectory = new DirectoryInfo($@"{path}\.fms");
-
-            if (!_serviceDirectory.Exists)
+            set
             {
-                _serviceDirectory.Create();
-                _serviceDirectory.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                BackupDirectory();
+                if (!Directory.Exists(value))
+                    throw new IncorrectPathException("Указанный путь не существует");
+
+                _directory = new DirectoryInfo(value);
+                _serviceDirectory = new DirectoryInfo($@"{value}\.fms");
+
+                if (!_serviceDirectory.Exists)
+                {
+                    _serviceDirectory.Create();
+                    _serviceDirectory.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+
+                    BackupDirectory();
+                }
             }
         }
 
+        public BackupLogic() => Path = Directory.GetCurrentDirectory();
+
+        /// <summary>
+        /// The current directory is backed up
+        /// </summary>
         public void BackupDirectory()
         {
             var files = new List<BackupFile>();
@@ -56,18 +67,20 @@ namespace FIleManagementSystem.Logic
             File.WriteAllText(backupFilePath, backupFileContent);
         }
 
+        /// <summary>
+        /// Rolls back the directory to the specified date
+        /// </summary>
         public void RollbackFolder(DateTime dateTime)
         {
-            _directory.Clean(".fms");
+            var dataPath = $@"{_serviceDirectory.FullName}\{dateTime.ToString().Replace(':', '-')}.json";
 
-            // !!! ПЕРЕДЕЛАТЬ
-            var directoryDataJson = _serviceDirectory.GetFiles()
-                                                     .Select(item => item.Name.Substring(0, 19)) // cut the date from the file name
-                                                     .FirstOrDefault(item => item == dateTime.ToString()
-                                                                                             .Replace(':', '-'));
+            if (!File.Exists(dataPath))
+                throw new MissingBackupException("Фиксации с заданным временем не найдено");
             
-            // !!! ПЕРЕДЕЛАТЬ
-            var backupFiles = JsonConvert.DeserializeObject<IEnumerable<BackupFile>>(File.ReadAllText(_serviceDirectory.FullName + @"\" + directoryDataJson + ".json"));
+            var backupFiles 
+                = JsonConvert.DeserializeObject<IEnumerable<BackupFile>>(File.ReadAllText(dataPath));
+
+            _directory.Clean(".fms");
 
             foreach (var item in backupFiles)
             {
@@ -78,10 +91,20 @@ namespace FIleManagementSystem.Logic
             }
         }
 
-        public IEnumerable<DateTime> GetCommitList() 
+        /// <summary>
+        /// Returns a list of commits in the current directory
+        /// </summary>
+        public IEnumerable<DateTime> GetCommitList()
             => _serviceDirectory.GetFiles()
-                                .Select(item => item.Name.Substring(0, 19)) // cut the date from the file name
-                                .Select(item => DateTime.ParseExact(item, "dd.MM.yyyy HH-mm-ss", CultureInfo.InvariantCulture));
+                                .Select(item => FileNameToDateTime(item.Name));
+
+        private DateTime FileNameToDateTime(string fileName)
+        {
+            fileName = fileName.Substring(0, 19); // cut the date from the file name
+            DateTime result = DateTime.ParseExact(fileName, "dd.MM.yyyy HH-mm-ss", CultureInfo.InvariantCulture);
+
+            return result;
+        }
 
 
     }

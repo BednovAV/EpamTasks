@@ -1,10 +1,6 @@
 ﻿using FIleManagementSystem.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FIleManagementSystem.Logic
 {
@@ -53,6 +49,10 @@ namespace FIleManagementSystem.Logic
             _watcher.Dispose();
         }
 
+        public void Dispose()
+        {
+            End();
+        }
         private void OnRenamed(object sender, RenamedEventArgs e)
         {
             _backupLogic.BackupDirectory();

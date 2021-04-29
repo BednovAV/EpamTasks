@@ -1,15 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FIleManagementSystem.Interfaces
 {
-    interface IDirectoryWatcher
+    public interface IDirectoryWatcher : IDisposable
     {
         event Action<object> Saved;
+
+        /// <summary>
+        /// Starts tracking mode
+        /// </summary>
         void Start(IBackupLogic backupLogic);
+
+        /// <summary>
+        /// Ends tracking mode
+        /// </summary>
         void End();
     }
 }
