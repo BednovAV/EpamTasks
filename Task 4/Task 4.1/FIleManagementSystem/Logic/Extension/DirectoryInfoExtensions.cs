@@ -24,5 +24,13 @@ namespace FIleManagementSystem.Logic.Extension
                 }
             }
         }
+
+        public static void RemoveFiles(this DirectoryInfo directory, string searchPattern)
+        {
+            foreach (var item in directory.GetFiles(searchPattern, SearchOption.AllDirectories))
+            {
+                item.Delete();
+            }
+        }
     }
 }

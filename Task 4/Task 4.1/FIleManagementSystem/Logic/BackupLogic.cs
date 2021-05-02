@@ -83,7 +83,8 @@ namespace FIleManagementSystem.Logic
             var backupFiles 
                 = JsonConvert.DeserializeObject<IEnumerable<BackupFile>>(File.ReadAllText(dataPath));
 
-            _directory.Clean(".fms");
+            //_directory.Clean(".fms");
+            _directory.RemoveFiles("#.txt");
 
             foreach (var item in backupFiles)
             {
