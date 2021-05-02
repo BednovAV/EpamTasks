@@ -42,13 +42,14 @@ namespace FIleManagementSystem.Logic
             }
         }
 
-        public BackupLogic() => Path = Directory.GetCurrentDirectory();
 
         /// <summary>
         /// The current directory is backed up
         /// </summary>
         public void BackupDirectory()
         {
+            Path ??= Directory.GetCurrentDirectory(); 
+
             var files = new List<BackupFile>();
 
             foreach (var item in _directory.GetFiles("*.txt", SearchOption.AllDirectories))
@@ -72,6 +73,8 @@ namespace FIleManagementSystem.Logic
         /// </summary>
         public void RollbackFolder(DateTime dateTime)
         {
+            Path ??= Directory.GetCurrentDirectory();
+
             var dataPath = $@"{_serviceDirectory.FullName}\{dateTime.ToString().Replace(':', '-')}.json";
 
             if (!File.Exists(dataPath))
@@ -95,7 +98,7 @@ namespace FIleManagementSystem.Logic
         /// Returns a list of commits in the current directory
         /// </summary>
         public IEnumerable<DateTime> GetCommitList()
-            => _serviceDirectory.GetFiles()
+            => _serviceDirectory?.GetFiles()
                                 .Select(item => FileNameToDateTime(item.Name));
 
         private DateTime FileNameToDateTime(string fileName)
