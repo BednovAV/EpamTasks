@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FIleManagementSystem.Logic.Exceptions
+namespace FileManagementSystem.Logic.Exceptions
 {
     class IncorrectPathException : ArgumentException
     {

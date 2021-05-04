@@ -1,8 +1,8 @@
-﻿using FIleManagementSystem.UI;
-using FIleManagementSystem.Logic;
+﻿using FileManagementSystem.UI;
+using FileManagementSystem.Logic;
 using System;
 
-namespace FIleManagementSystem
+namespace FileManagementSystem
 {
     class Program
     {

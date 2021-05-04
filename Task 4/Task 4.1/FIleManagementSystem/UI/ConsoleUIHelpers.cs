@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace FIleManagementSystem.UI
+namespace FileManagementSystem.UI
 {
     public static class ConsoleUIHelpers
     {

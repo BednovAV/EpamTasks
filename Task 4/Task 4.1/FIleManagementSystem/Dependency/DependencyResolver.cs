@@ -1,12 +1,12 @@
-﻿using FIleManagementSystem.Interfaces;
-using FIleManagementSystem.Logic;
+﻿using FileManagementSystem.Interfaces;
+using FileManagementSystem.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FIleManagementSystem.Dependency
+namespace FileManagementSystem.Dependency
 {
     public static class DependencyResolver
     {

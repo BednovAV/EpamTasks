@@ -1,12 +1,12 @@
-﻿using FIleManagementSystem.Interfaces;
+﻿using FileManagementSystem.Interfaces;
 using System;
 using System.IO;
 
-namespace FIleManagementSystem.Logic
+namespace FileManagementSystem.Logic
 {
     public class DirectoryWatcher : IDirectoryWatcher
     {
-        public event Action<object> Saved = delegate { };
+        public event Action<object> DirectorySaved = delegate { };
 
         private IBackupLogic _backupLogic;
 
@@ -56,25 +56,25 @@ namespace FIleManagementSystem.Logic
         private void OnRenamed(object sender, RenamedEventArgs e)
         {
             _backupLogic.BackupDirectory();
-            Saved?.Invoke(this);
+            DirectorySaved?.Invoke(this);
         }
 
         private void OnDeleted(object sender, FileSystemEventArgs e)
         {
             _backupLogic.BackupDirectory();
-            Saved?.Invoke(this);
+            DirectorySaved?.Invoke(this);
         }
 
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
             _backupLogic.BackupDirectory();
-            Saved?.Invoke(this);
+            DirectorySaved?.Invoke(this);
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
             _backupLogic.BackupDirectory();
-            Saved?.Invoke(this);
+            DirectorySaved?.Invoke(this);
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace FIleManagementSystem.Interfaces
+namespace FileManagementSystem.Interfaces
 {
     public interface IDirectoryWatcher : IDisposable
     {
-        event Action<object> Saved;
+        event Action<object> DirectorySaved;
 
         /// <summary>
         /// Starts tracking mode

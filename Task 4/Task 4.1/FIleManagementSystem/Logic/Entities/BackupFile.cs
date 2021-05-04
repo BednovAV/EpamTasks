@@ -1,4 +1,4 @@
-﻿namespace FIleManagementSystem.Logic.Entities
+﻿namespace FileManagementSystem.Logic.Entities
 {
     public class BackupFile
     {

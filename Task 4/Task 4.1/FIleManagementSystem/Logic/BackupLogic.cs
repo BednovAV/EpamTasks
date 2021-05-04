@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using FIleManagementSystem.Interfaces;
-using FIleManagementSystem.Logic.Entities;
-using FIleManagementSystem.Logic.Exceptions;
-using FIleManagementSystem.Logic.Extension;
+using FileManagementSystem.Interfaces;
+using FileManagementSystem.Logic.Entities;
+using FileManagementSystem.Logic.Exceptions;
+using FileManagementSystem.Logic.Extension;
 using Newtonsoft.Json;
 
-namespace FIleManagementSystem.Logic
+namespace FileManagementSystem.Logic
 {
     public class BackupLogic : IBackupLogic
     {

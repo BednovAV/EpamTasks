@@ -1,9 +1,9 @@
-﻿using FIleManagementSystem.Dependency;
-using FIleManagementSystem.Interfaces;
+﻿using FileManagementSystem.Dependency;
+using FileManagementSystem.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace FIleManagementSystem.UI
+namespace FileManagementSystem.UI
 {
     public class ConsoleUI
     {
@@ -86,7 +86,7 @@ namespace FIleManagementSystem.UI
 
         private void TrackingMode()
         {
-            _directoryWatcher.Saved += OnSaved;
+            _directoryWatcher.DirectorySaved += OnSaved;
             _directoryWatcher.Start(_backupLogic);
 
             using (_directoryWatcher)

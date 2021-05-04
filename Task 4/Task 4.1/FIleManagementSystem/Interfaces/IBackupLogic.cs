@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FIleManagementSystem.Interfaces
+namespace FileManagementSystem.Interfaces
 {
     public interface IBackupLogic
     {

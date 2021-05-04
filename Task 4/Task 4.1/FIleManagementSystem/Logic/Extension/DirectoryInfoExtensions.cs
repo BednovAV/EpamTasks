@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace FIleManagementSystem.Logic.Extension
+namespace FileManagementSystem.Logic.Extension
 {
     public static class DirectoryInfoExtensions
     {
