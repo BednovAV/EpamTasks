@@ -21,13 +21,7 @@ namespace FileManagementSystem.UI
         {
             Console.Clear();
 
-            string path;
-
-            while (!ConsoleUIHelpers
-                       .TryInputDirectory("Введите путь до отслеживаемой директории: ", out path))
-            {
-                Console.WriteLine("Указанной директории не существует");
-            }
+            string path = ConsoleUIHelpers.InputDirectory("Введите путь до отслеживаемой директории: ");
 
             _backupLogic = _backupLogicFactory.GetInstance(path);
 
@@ -44,7 +38,7 @@ namespace FileManagementSystem.UI
 
             Console.Clear();
 
-            Console.WriteLine(_backupLogic.Path);
+            Console.WriteLine(_backupLogic.DirectoryPath);
             Console.WriteLine();
 
             string select = string.Empty;
@@ -73,7 +67,7 @@ namespace FileManagementSystem.UI
             var commitList = new List<DateTime>(_backupLogic.GetCommits());
 
 
-            Console.WriteLine($"Список фиксаций({_backupLogic.Path}):");
+            Console.WriteLine($"Список фиксаций({_backupLogic.DirectoryPath}):");
             for (int i = 0; i < commitList.Count; i++)
             {
                 Console.WriteLine($"\t{i}. {commitList[i].ToString()}");
@@ -92,7 +86,7 @@ namespace FileManagementSystem.UI
             {
                 directoryWatcher.DirectorySaved += OnSaved;
 
-                Console.WriteLine($"Режим наблюдения включен ({_backupLogic.Path})");
+                Console.WriteLine($"Режим наблюдения включен ({_backupLogic.DirectoryPath})");
                 Console.WriteLine();
                 Console.WriteLine("Нажмите на любую клавишу чтобы выйти");
                 Console.ReadKey();

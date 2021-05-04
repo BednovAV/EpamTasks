@@ -5,16 +5,33 @@ namespace FileManagementSystem.UI
 {
     public static class ConsoleUIHelpers
     {
-        public static bool TryInputDirectory(string message, out string path)
+        /// <summary>
+        /// Displays a message and asks to enter the directory path,
+        /// in case of incorrect input, asks again
+        /// </summary>
+        /// <returns>Existing directory</returns>
+        public static string InputDirectory(string message)
         {
-            Console.Write(message);
+            bool retry = false;
+            string path;
+            do
+            {
+                if (retry)
+                    Console.WriteLine("Указанной директории не существует");
 
-            path = Console.ReadLine();
+                retry = true;
 
-            return Directory.Exists(path);
+
+                Console.Write(message);
+                path = Console.ReadLine();
+
+            } while (!Directory.Exists(path));
+            
+
+            return path;
         }
 
-        public static int InputValueInRange(string message, int from, int before)
+        public static int InputValueInRange(string message, int from, int to)
         {
             int result;
 
@@ -23,7 +40,7 @@ namespace FileManagementSystem.UI
             {
                 Console.Write(message);
                 retry = !int.TryParse(Console.ReadLine(), out result);
-            } while (!(result < before && result >= from)
+            } while (!(result < to && result >= from)
                    || retry);
 
             return result;

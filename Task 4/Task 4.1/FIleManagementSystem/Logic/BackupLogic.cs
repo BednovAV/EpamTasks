@@ -19,7 +19,7 @@ namespace FileManagementSystem.Logic
         /// <summary>
         /// The path to the working directory
         /// </summary>
-        public string Path => _directory?.FullName;
+        public string DirectoryPath => _directory.FullName;
 
         public BackupLogic(string path)
         {
@@ -27,7 +27,7 @@ namespace FileManagementSystem.Logic
                 throw new IncorrectPathException("Указанный путь не существует");
 
             _directory = new DirectoryInfo(path);
-            _serviceDirectory = new DirectoryInfo($@"{path}\.fms");
+            _serviceDirectory = new DirectoryInfo(Path.Combine(path, ".fms"));
 
             if (!_serviceDirectory.Exists)
             {
@@ -55,7 +55,9 @@ namespace FileManagementSystem.Logic
                 });
             }
 
-            var backupFilePath = $@"{_serviceDirectory.FullName}\{DateTime.Now.ToString().Replace(':', '-')}.json";
+            var dateTime = DateTime.Now.ToString("dd.MM.yyyy HH-mm-ss");
+
+            var backupFilePath = Path.Combine(_serviceDirectory.FullName, $"{dateTime}.json");
             var backupFileContent = JsonConvert.SerializeObject(files);
 
             File.WriteAllText(backupFilePath, backupFileContent);
@@ -66,7 +68,10 @@ namespace FileManagementSystem.Logic
         /// </summary>
         public void RollbackFolder(DateTime dateTime)
         {
-            var dataPath = $@"{_serviceDirectory.FullName}\{dateTime.ToString().Replace(':', '-')}.json";
+            var dateTimeString = dateTime.ToString("dd.MM.yyyy HH-mm-ss");
+
+            var dataPath = Path.Combine(_serviceDirectory.FullName, $"{dateTimeString}.json");
+            //var dataPath = $@"{_serviceDirectory.FullName}\{dateTime.ToString().Replace(':', '-')}.json";
 
             if (!File.Exists(dataPath))
                 throw new MissingBackupException("Фиксации с заданным временем не найдено");
@@ -90,7 +95,8 @@ namespace FileManagementSystem.Logic
         /// </summary>
         public IEnumerable<DateTime> GetCommits()
             => _serviceDirectory?.GetFiles()
-                                .Select(item => FileNameToDateTime(item.Name));
+                                .Select(item => FileNameToDateTime(item.Name))
+                                .OrderBy(item => item);
 
         private DateTime FileNameToDateTime(string fileName)
         {

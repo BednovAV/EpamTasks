@@ -8,7 +8,7 @@ namespace FileManagementSystem.Interfaces
         /// <summary>
         /// The path to the working directory
         /// </summary>
-        string Path { get; }
+        string DirectoryPath { get; }
 
         /// <summary>
         /// The current directory is backed up

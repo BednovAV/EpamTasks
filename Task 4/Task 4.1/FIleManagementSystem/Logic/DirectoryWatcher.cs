@@ -19,7 +19,7 @@ namespace FileManagementSystem.Logic
         {
             _backupLogic = backupLogic;
 
-            _watcher = new FileSystemWatcher(_backupLogic.Path);
+            _watcher = new FileSystemWatcher(_backupLogic.DirectoryPath);
 
             _watcher.NotifyFilter = NotifyFilters.CreationTime
                                  | NotifyFilters.DirectoryName
