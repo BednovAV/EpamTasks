@@ -15,25 +15,22 @@ namespace FileManagementSystem.Logic
         /// <summary>
         /// Starts tracking mode
         /// </summary>
-        public void Start(IBackupLogic backupLogic)
+        public DirectoryWatcher(IBackupLogic backupLogic)
         {
             _backupLogic = backupLogic;
 
             _watcher = new FileSystemWatcher(_backupLogic.Path);
 
-            _watcher.NotifyFilter = NotifyFilters.Attributes
-                                 | NotifyFilters.CreationTime
+            _watcher.NotifyFilter = NotifyFilters.CreationTime
                                  | NotifyFilters.DirectoryName
                                  | NotifyFilters.FileName
-                                 | NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite
-                                 | NotifyFilters.Security
                                  | NotifyFilters.Size;
 
             _watcher.Changed += OnChanged;
-            _watcher.Created += OnCreated;
-            _watcher.Deleted += OnDeleted;
-            _watcher.Renamed += OnRenamed;
+            _watcher.Created += OnChanged;
+            _watcher.Deleted += OnChanged;
+            _watcher.Renamed += OnChanged;
 
             _watcher.Filter = "*.txt";
 
@@ -44,32 +41,12 @@ namespace FileManagementSystem.Logic
         /// <summary>
         /// Ends tracking mode
         /// </summary>
-        public void End()
+        public void Dispose()
         {
             _watcher.Dispose();
         }
 
-        public void Dispose()
-        {
-            End();
-        }
-        private void OnRenamed(object sender, RenamedEventArgs e)
-        {
-            _backupLogic.BackupDirectory();
-            DirectorySaved?.Invoke(this);
-        }
-
-        private void OnDeleted(object sender, FileSystemEventArgs e)
-        {
-            _backupLogic.BackupDirectory();
-            DirectorySaved?.Invoke(this);
-        }
-
-        private void OnCreated(object sender, FileSystemEventArgs e)
-        {
-            _backupLogic.BackupDirectory();
-            DirectorySaved?.Invoke(this);
-        }
+        
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {

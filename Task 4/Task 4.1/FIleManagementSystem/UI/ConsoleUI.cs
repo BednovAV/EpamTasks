@@ -1,5 +1,4 @@
-﻿using FileManagementSystem.Dependency;
-using FileManagementSystem.Interfaces;
+﻿using FileManagementSystem.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -8,12 +7,12 @@ namespace FileManagementSystem.UI
     public class ConsoleUI
     {
         private IBackupLogic _backupLogic;
-        private IDirectoryWatcher _directoryWatcher;
+        private IDirectoryWatcherFactory _directoryWatcherFactory;
 
-        public ConsoleUI()
+        public ConsoleUI(IBackupLogic backupLogic, IDirectoryWatcherFactory directoryWatcherFactory)
         {
-            _backupLogic = DependencyResolver.BackupLogic;
-            _directoryWatcher = DependencyResolver.DirectoryWatcher;
+            _backupLogic = backupLogic;
+            _directoryWatcherFactory = directoryWatcherFactory;
         }
 
         public void StartMenu()
@@ -86,19 +85,21 @@ namespace FileManagementSystem.UI
 
         private void TrackingMode()
         {
-            _directoryWatcher.DirectorySaved += OnSaved;
-            _directoryWatcher.Start(_backupLogic);
 
-            using (_directoryWatcher)
+            using (var directoryWatcher = _directoryWatcherFactory.GetInstance(_backupLogic))
             {
+                directoryWatcher.DirectorySaved += OnSaved;
+
                 Console.WriteLine($"Режим наблюдения включен ({_backupLogic.Path})");
                 Console.WriteLine();
                 Console.WriteLine("Нажмите на любую клавишу чтобы выйти");
                 Console.ReadKey();
+
+                directoryWatcher.DirectorySaved -= OnSaved;
             }
         }
 
-        private void OnSaved(object sender)
+        private void OnSaved(object sendler)
         {
             Console.WriteLine($"{DateTime.Now.ToString()} Изменения зафиксированы");
         }

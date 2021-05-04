@@ -1,6 +1,7 @@
 ﻿using FileManagementSystem.UI;
 using FileManagementSystem.Logic;
 using System;
+using FileManagementSystem.Dependency;
 
 namespace FileManagementSystem
 {
@@ -8,7 +9,7 @@ namespace FileManagementSystem
     {
         static void Main(string[] args)
         {
-            var app = new ConsoleUI();
+            var app = new ConsoleUI(DependencyResolver.BackupLogic, DependencyResolver.DirectoryWatcherFactory);
             app.StartMenu();
         }
     }

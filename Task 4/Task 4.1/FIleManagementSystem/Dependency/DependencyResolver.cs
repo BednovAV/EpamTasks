@@ -1,5 +1,6 @@
 ﻿using FileManagementSystem.Interfaces;
 using FileManagementSystem.Logic;
+using FileManagementSystem.Logic.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace FileManagementSystem.Dependency
             => _backupLogic is null ? _backupLogic = new BackupLogic() : _backupLogic;
 
 
-        private static IDirectoryWatcher _directoryWatcher;
-        public static IDirectoryWatcher DirectoryWatcher
-            => _directoryWatcher is null ? _directoryWatcher = new DirectoryWatcher() : _directoryWatcher;
+        private static IDirectoryWatcherFactory _directoryWatcherfactory;
+        public static IDirectoryWatcherFactory DirectoryWatcherFactory
+            => _directoryWatcherfactory ??=  new DirectoryWatcherFactory();
     }
 }
