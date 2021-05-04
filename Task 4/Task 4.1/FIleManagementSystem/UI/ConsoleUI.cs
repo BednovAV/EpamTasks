@@ -7,11 +7,13 @@ namespace FileManagementSystem.UI
     public class ConsoleUI
     {
         private IBackupLogic _backupLogic;
+
+        IBackupLogicFactory _backupLogicFactory;
         private IDirectoryWatcherFactory _directoryWatcherFactory;
 
-        public ConsoleUI(IBackupLogic backupLogic, IDirectoryWatcherFactory directoryWatcherFactory)
+        public ConsoleUI(IBackupLogicFactory backupLogicFactory, IDirectoryWatcherFactory directoryWatcherFactory)
         {
-            _backupLogic = backupLogic;
+            _backupLogicFactory = backupLogicFactory;
             _directoryWatcherFactory = directoryWatcherFactory;
         }
 
@@ -27,7 +29,7 @@ namespace FileManagementSystem.UI
                 Console.WriteLine("Указанной директории не существует");
             }
 
-            _backupLogic.Path = path;
+            _backupLogic = _backupLogicFactory.GetInstance(path);
 
             MainMenu();
         }
@@ -68,7 +70,7 @@ namespace FileManagementSystem.UI
 
         private void BackChanges()
         {
-            var commitList = new List<DateTime>(_backupLogic.GetCommitList());
+            var commitList = new List<DateTime>(_backupLogic.GetCommits());
 
 
             Console.WriteLine($"Список фиксаций({_backupLogic.Path}):");

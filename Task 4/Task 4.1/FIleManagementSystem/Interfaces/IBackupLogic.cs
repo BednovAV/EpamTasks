@@ -8,7 +8,7 @@ namespace FileManagementSystem.Interfaces
         /// <summary>
         /// The path to the working directory
         /// </summary>
-        string Path { get; set; }
+        string Path { get; }
 
         /// <summary>
         /// The current directory is backed up
@@ -23,6 +23,6 @@ namespace FileManagementSystem.Interfaces
         /// <summary>
         /// Returns a list of commits in the current directory
         /// </summary>
-        IEnumerable<DateTime> GetCommitList();
+        IEnumerable<DateTime> GetCommits();
     }
 }

@@ -19,37 +19,30 @@ namespace FileManagementSystem.Logic
         /// <summary>
         /// The path to the working directory
         /// </summary>
-        public string Path 
-        { 
-            
-            get => _directory?.FullName;
+        public string Path => _directory?.FullName;
 
-            set
+        public BackupLogic(string path)
+        {
+            if (!Directory.Exists(path))
+                throw new IncorrectPathException("Указанный путь не существует");
+
+            _directory = new DirectoryInfo(path);
+            _serviceDirectory = new DirectoryInfo($@"{path}\.fms");
+
+            if (!_serviceDirectory.Exists)
             {
-                if (!Directory.Exists(value))
-                    throw new IncorrectPathException("Указанный путь не существует");
+                _serviceDirectory.Create();
+                _serviceDirectory.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
 
-                _directory = new DirectoryInfo(value);
-                _serviceDirectory = new DirectoryInfo($@"{value}\.fms");
-
-                if (!_serviceDirectory.Exists)
-                {
-                    _serviceDirectory.Create();
-                    _serviceDirectory.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-
-                    BackupDirectory();
-                }
+                BackupDirectory();
             }
         }
-
 
         /// <summary>
         /// The current directory is backed up
         /// </summary>
         public void BackupDirectory()
         {
-            Path ??= Directory.GetCurrentDirectory(); 
-
             var files = new List<BackupFile>();
 
             foreach (var item in _directory.GetFiles("*.txt", SearchOption.AllDirectories))
@@ -73,8 +66,6 @@ namespace FileManagementSystem.Logic
         /// </summary>
         public void RollbackFolder(DateTime dateTime)
         {
-            Path ??= Directory.GetCurrentDirectory();
-
             var dataPath = $@"{_serviceDirectory.FullName}\{dateTime.ToString().Replace(':', '-')}.json";
 
             if (!File.Exists(dataPath))
@@ -83,8 +74,7 @@ namespace FileManagementSystem.Logic
             var backupFiles 
                 = JsonConvert.DeserializeObject<IEnumerable<BackupFile>>(File.ReadAllText(dataPath));
 
-            //_directory.Clean(".fms");
-            _directory.RemoveFiles("#.txt");
+            _directory.RemoveFiles("*.txt");
 
             foreach (var item in backupFiles)
             {
@@ -98,7 +88,7 @@ namespace FileManagementSystem.Logic
         /// <summary>
         /// Returns a list of commits in the current directory
         /// </summary>
-        public IEnumerable<DateTime> GetCommitList()
+        public IEnumerable<DateTime> GetCommits()
             => _serviceDirectory?.GetFiles()
                                 .Select(item => FileNameToDateTime(item.Name));
 

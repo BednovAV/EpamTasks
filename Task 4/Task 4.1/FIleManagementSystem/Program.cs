@@ -9,7 +9,7 @@ namespace FileManagementSystem
     {
         static void Main(string[] args)
         {
-            var app = new ConsoleUI(DependencyResolver.BackupLogic, DependencyResolver.DirectoryWatcherFactory);
+            var app = new ConsoleUI(DependencyResolver.BackupLogicFactory, DependencyResolver.DirectoryWatcherFactory);
             app.StartMenu();
         }
     }
