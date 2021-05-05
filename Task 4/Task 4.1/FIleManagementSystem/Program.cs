@@ -1,6 +1,4 @@
 ﻿using FileManagementSystem.UI;
-using FileManagementSystem.Logic;
-using System;
 using FileManagementSystem.Dependency;
 
 namespace FileManagementSystem

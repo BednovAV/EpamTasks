@@ -71,7 +71,6 @@ namespace FileManagementSystem.Logic
             var dateTimeString = dateTime.ToString("dd.MM.yyyy HH-mm-ss");
 
             var dataPath = Path.Combine(_serviceDirectory.FullName, $"{dateTimeString}.json");
-            //var dataPath = $@"{_serviceDirectory.FullName}\{dateTime.ToString().Replace(':', '-')}.json";
 
             if (!File.Exists(dataPath))
                 throw new MissingBackupException("Фиксации с заданным временем не найдено");
@@ -95,8 +94,8 @@ namespace FileManagementSystem.Logic
         /// </summary>
         public IEnumerable<DateTime> GetCommits()
             => _serviceDirectory?.GetFiles()
-                                .Select(item => FileNameToDateTime(item.Name))
-                                .OrderBy(item => item);
+                                .Select(file => FileNameToDateTime(file.Name))
+                                .OrderBy(date => date);
 
         private DateTime FileNameToDateTime(string fileName)
         {

@@ -8,7 +8,7 @@ namespace FileManagementSystem.UI
     {
         private IBackupLogic _backupLogic;
 
-        IBackupLogicFactory _backupLogicFactory;
+        private IBackupLogicFactory _backupLogicFactory;
         private IDirectoryWatcherFactory _directoryWatcherFactory;
 
         public ConsoleUI(IBackupLogicFactory backupLogicFactory, IDirectoryWatcherFactory directoryWatcherFactory)
